@@ -1,0 +1,20 @@
+<resources>
+    <string name="ip_api">http://10.0.2.2:8888/promocao</string>
+    <string name="app_name">Bernadete</string>
+    <string name="title_main">Guarda Roupa</string>
+    <string name="title_look">Visual</string>
+    <string name="title_sale">Promoções</string>
+    <string name="open">Open</string>
+    <string name="close">Close</string>
+    <string name="name">Nome</string>
+    <string name="description">Descrição</string>
+    <string name="filter">Filtro</string>
+    <string name="save">Salvar</string>
+    <string name="category">Categoria</string>
+    <string name="hint_piece_name">Digite o nome da peça de roupa</string>
+    <string name="hint_piece_description">Digite informações extras sobre a peça</string>
+    <string name="title_register_piece">Cadastro de Peça de Roupa</string>
+    <string name="title_update_piece">Atualização de Peça de Roupa</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+</resources>

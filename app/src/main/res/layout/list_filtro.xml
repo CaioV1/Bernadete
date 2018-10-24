@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="20dp">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="20sp"
+        android:text="Marca"
+        android:textStyle="bold"
+        android:textColor="@color/colorPrimary"
+        android:id="@+id/txt_principal"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="15sp"
+        android:text="Nike / Hering / Via Marte /..."
+        android:textColor="@color/colorText"
+        android:id="@+id/txt_secundario"/>
+
+</LinearLayout>
