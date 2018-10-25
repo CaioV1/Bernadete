@@ -170,13 +170,13 @@ class PecaDAO {
 
     }
 
-    fun obterFiltro(context: Context): ArrayList<Filtro>{
+    fun obterFiltros(context: Context, idTipo: Int): ArrayList<Filtro>{
 
         val listaFiltro = ArrayList<Filtro>()
 
         database = DBHelper(context).readableDatabase
 
-        val SQL: String = "SELECT f.*, t.nome FROM tbl_filtro AS f INNER JOIN tbl_tipo_filtro AS t ON f.id_tipo = t._id_tipo"
+        val SQL: String = "SELECT f.*, t.nome FROM tbl_filtro AS f INNER JOIN tbl_tipo_filtro AS t ON f.id_tipo = t._id_tipo WHERE id_tipo = " + idTipo
 
         val cursor:Cursor = database.rawQuery(SQL, null)
 
@@ -193,6 +193,30 @@ class PecaDAO {
         cursor.close()
 
         return listaFiltro
+
+    }
+
+    fun obterFiltro(context: Context, idFiltro: Int): Filtro?{
+
+        var filtro: Filtro? = null
+
+        database = DBHelper(context).readableDatabase
+
+        val SQL: String = "SELECT f.*, t.nome FROM tbl_filtro AS f INNER JOIN tbl_tipo_filtro AS t ON f.id_tipo = t._id_tipo WHERE _id_filtro = " + idFiltro
+
+        val cursor:Cursor = database.rawQuery(SQL, null)
+
+        if(cursor.moveToNext()){
+
+            filtro = Filtro(cursor.getInt(0), cursor.getInt(2), cursor.getString(1), cursor.getString(3), ArrayList())
+
+            Log.d("!!", cursor.getString(3))
+
+        }
+
+        cursor.close()
+
+        return filtro
 
     }
 

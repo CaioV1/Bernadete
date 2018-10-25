@@ -20,6 +20,7 @@
     <ListView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:paddingTop="50dp"
         android:id="@+id/list_filtro">
     </ListView>
 

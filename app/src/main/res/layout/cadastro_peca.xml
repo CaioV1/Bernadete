@@ -50,14 +50,21 @@
             android:hint="@string/hint_piece_name"
             android:id="@+id/txt_peca_nome"/>
 
-        <!--<Button-->
-            <!--android:layout_width="100dp"-->
-            <!--android:layout_height="50dp"-->
-            <!--android:layout_marginTop="20dp"-->
-            <!--android:text="@string/filter"-->
-            <!--android:textColor="@color/colorTextAlternative"-->
-            <!--android:backgroundTint="@color/colorPrimaryDark"-->
-            <!--android:id="@+id/btn_filtro"/>-->
+        <Button
+            android:layout_width="100dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="20dp"
+            android:text="@string/filter"
+            android:textColor="@color/colorTextAlternative"
+            android:backgroundTint="@color/colorPrimaryDark"
+            android:id="@+id/btn_filtro"/>
+
+        <ListView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:id="@+id/list_selected_filter">
+        </ListView>
 
         <TextView
             android:layout_width="match_parent"

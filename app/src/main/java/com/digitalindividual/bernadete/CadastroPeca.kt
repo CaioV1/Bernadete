@@ -9,11 +9,15 @@ import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.view.ViewGroup
 import android.widget.*
 import com.digitalindividual.adapters.CategoriaAdapter
+import com.digitalindividual.adapters.FiltroAdapter
 import com.digitalindividual.dao.PecaDAO
 import com.digitalindividual.model.Categoria
+import com.digitalindividual.model.Filtro
 import com.digitalindividual.model.Peca
+import com.digitalindividual.util.DataHolder
 import org.jetbrains.anko.*
 import java.io.FileNotFoundException
 import java.io.InputStream
@@ -22,15 +26,18 @@ class CadastroPeca : AppCompatActivity() {
 
     var COD_GALLERY: Int = 1
     lateinit var imagePeca: ImageView
+    val listaFiltro = DataHolder.instance.listaFiltro
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.cadastro_peca)
 
-//        val btnFiltro = findViewById<Button>(R.id.btn_filtro)
+        val btnFiltro = findViewById<Button>(R.id.btn_filtro)
         val btnSalvar = find<Button>(R.id.btn_salvar)
 
         val spinner = find<Spinner>(R.id.spn_categoria)
+
+        var listView = findViewById<ListView>(R.id.list_selected_filter)
 
         val txtNome = find<TextView>(R.id.txt_peca_nome)
         val txtDescricao = find<TextView>(R.id.txt_peca_descricao)
@@ -45,6 +52,45 @@ class CadastroPeca : AppCompatActivity() {
         val adapter = CategoriaAdapter(this, listaCategoria)
 
         spinner.adapter = adapter
+
+        var filtro: Filtro? = null
+
+        if(intent.getIntExtra("id", 0) != 0){
+
+            filtro = pecaDAO.obterFiltro(this, intent.getIntExtra("id", 0))
+
+            listaFiltro.add(filtro as Filtro)
+
+            var adapter = FiltroAdapter(this, listaFiltro, "Filtro")
+
+            var layout: ViewGroup.LayoutParams = listView.layoutParams
+
+//            var tamanho = layout.height
+//
+//            tamanho += 1000
+//
+//            layout.height = tamanho
+//
+            layout.height = 200 + layout.height
+
+            toast(layout.height.toString())
+
+            listView.layoutParams = layout
+
+            listView.adapter = adapter
+
+        }
+
+        btnFiltro.setOnClickListener(View.OnClickListener {
+
+            var intent = Intent(this, com.digitalindividual.bernadete.Filtro::class.java)
+
+            intent.putExtra("Dado", "Tipo")
+            intent.putExtra("id", 0)
+
+            startActivity(intent)
+
+        })
 
         val idPeca = intent.getIntExtra("idPeca", 0)
 
@@ -66,7 +112,7 @@ class CadastroPeca : AppCompatActivity() {
 
         }
 
-        toast(intent.getIntExtra("idPeca", 0).toString())
+//        toast(intent.getIntExtra("idPeca", 0).toString())
 
         btnSalvar.setOnClickListener(View.OnClickListener {
 
@@ -117,7 +163,7 @@ class CadastroPeca : AppCompatActivity() {
 
             }
 
-            startActivity(intentFor<MainActivity>())
+            startActivity(intentFor<MainActivity>("posicao" to intent.getIntExtra("posicao", 0)))
 
         })
 

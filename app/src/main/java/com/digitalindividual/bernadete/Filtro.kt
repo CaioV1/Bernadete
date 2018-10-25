@@ -9,6 +9,8 @@ import android.widget.ListView
 import com.digitalindividual.adapters.FiltroAdapter
 import com.digitalindividual.dao.PecaDAO
 import com.digitalindividual.model.Filtro
+import com.digitalindividual.util.DataHolder
+import org.jetbrains.anko.intentFor
 
 class Filtro : AppCompatActivity() {
 
@@ -18,25 +20,45 @@ class Filtro : AppCompatActivity() {
 
         var listView = findViewById<ListView>(R.id.list_filtro)
 
-        val pecaDAO = PecaDAO.instance
+        val tipo: String = intent.getStringExtra("Dado")
+
+        val pecaDAO = PecaDAO()
 
         var context: Context = this
 
-        val listaTipoFiltro: ArrayList<Filtro> = pecaDAO.obterTipoFiltro(this)
+        var lista = ArrayList<Filtro>()
 
-        listaTipoFiltro.forEach {
+        if(tipo == "Tipo"){
 
-            it.listaFiltro?.forEach {
+            lista = pecaDAO.obterTipoFiltro(this)
 
-                Log.d("XXXXXXXXXXXXXXXXX", it)
+        } else {
+
+            lista = pecaDAO.obterFiltros(context, intent.getIntExtra("id", 1))
+
+        }
+
+        val adapter: FiltroAdapter = FiltroAdapter(context, lista, tipo)
+
+        listView.adapter = adapter
+
+        listView.setOnItemClickListener{adapterView, view, i, l ->
+
+            var filtro: Filtro = adapter.getItem(i) as Filtro
+
+            if(tipo != "Tipo"){
+
+                startActivity(intentFor<CadastroPeca>("Dado" to "Filtro", "id" to filtro.id))
+
+
+            } else {
+
+                startActivity(intentFor<com.digitalindividual.bernadete.Filtro>("Dado" to "Filtro", "id" to filtro.idTipoFiltro))
 
             }
 
         }
 
-        val adapter: FiltroAdapter = FiltroAdapter(context, listaTipoFiltro, false)
-
-        listView.adapter = adapter
 
     }
 }

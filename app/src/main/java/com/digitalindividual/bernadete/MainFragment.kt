@@ -23,6 +23,7 @@ import org.jetbrains.anko.intentFor
 class MainFragment : Fragment() {
 
     private var idPeca: Int = 0
+    private var position: Int = 0
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 
@@ -44,6 +45,8 @@ class MainFragment : Fragment() {
         val vpAdapter: ClosetAdapter = ClosetAdapter(view.context, listaPecas)
 
         vpCloset.adapter = vpAdapter
+
+        vpCloset.setCurrentItem(activity.intent.getIntExtra("posicao", 0), true)
 
         btnAdicionar.setOnClickListener(View.OnClickListener {
 
@@ -92,6 +95,7 @@ class MainFragment : Fragment() {
             val intent = Intent(view.context, CadastroPeca::class.java)
 
             intent.putExtra("idPeca", idPeca)
+            intent.putExtra("posicao", this.position)
 
             startActivity(intent)
 
@@ -108,6 +112,8 @@ class MainFragment : Fragment() {
             override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {
 
                 idPeca = listaPecas.get(position).id
+
+                this@MainFragment.position = position
 
                 Toast.makeText(view.context, "Posição = ${position} | ID = ${idPeca} | Tamanho = ${listaPecas.size} | Nome = ${listaPecas.get(position).nome}", Toast.LENGTH_LONG).show()
 
