@@ -7,10 +7,13 @@ import android.util.Log
 import android.widget.ArrayAdapter
 import android.widget.ListView
 import com.digitalindividual.adapters.FiltroAdapter
+import com.digitalindividual.dao.FiltroDAO
 import com.digitalindividual.dao.PecaDAO
 import com.digitalindividual.model.Filtro
+import com.digitalindividual.model.Peca
 import com.digitalindividual.util.DataHolder
 import org.jetbrains.anko.intentFor
+import org.jetbrains.anko.toast
 
 class Filtro : AppCompatActivity() {
 
@@ -22,7 +25,7 @@ class Filtro : AppCompatActivity() {
 
         val tipo: String = intent.getStringExtra("Dado")
 
-        val pecaDAO = PecaDAO()
+        val filtroDAO = FiltroDAO()
 
         var context: Context = this
 
@@ -30,11 +33,11 @@ class Filtro : AppCompatActivity() {
 
         if(tipo == "Tipo"){
 
-            lista = pecaDAO.obterTipoFiltro(this)
+            lista = filtroDAO.obterTipoFiltro(this)
 
         } else {
 
-            lista = pecaDAO.obterFiltros(context, intent.getIntExtra("id", 1))
+            lista = filtroDAO.obterTodos(context, intent.getIntExtra("id", 1))
 
         }
 
@@ -46,14 +49,30 @@ class Filtro : AppCompatActivity() {
 
             var filtro: Filtro = adapter.getItem(i) as Filtro
 
+            var lista = intent.getIntegerArrayListExtra("Lista")
+
+            var posicao = -1
+
+            if(filtro.idTipoFiltro in lista){
+
+                posicao = lista.indexOf(filtro.idTipoFiltro)
+
+            }
+
             if(tipo != "Tipo"){
 
-                startActivity(intentFor<CadastroPeca>("Dado" to "Filtro", "id" to filtro.id))
+                var peca = intent.getSerializableExtra("ObjetoPeca") as Peca
+                val idPeca = peca.id
+
+                startActivity(intentFor<CadastroPeca>("Dado" to "Filtro", "idFiltro" to filtro.id, "posicao" to posicao, "ObjetoPeca" to peca, "idPeca" to idPeca))
 
 
             } else {
 
-                startActivity(intentFor<com.digitalindividual.bernadete.Filtro>("Dado" to "Filtro", "id" to filtro.idTipoFiltro))
+                val lista = intent.getIntegerArrayListExtra("Lista")
+                val peca = intent.getSerializableExtra("ObjetoPeca")
+
+                startActivity(intentFor<com.digitalindividual.bernadete.Filtro>("Dado" to "Filtro", "id" to filtro.idTipoFiltro, "Lista" to lista, "ObjetoPeca" to peca))
 
             }
 

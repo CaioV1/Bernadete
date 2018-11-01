@@ -58,7 +58,7 @@ class MainFragment : Fragment() {
 
         btnRemover.setOnClickListener(View.OnClickListener {
 
-            val builder: AlertDialog.Builder = AlertDialog.Builder(view.context)
+            val builder: AlertDialog.Builder = AlertDialog.Builder(view.context, R.style.AlertDialogStyle)
 
             var peca: Peca? = pecaDAO.obterUm(view.context, idPeca)
 

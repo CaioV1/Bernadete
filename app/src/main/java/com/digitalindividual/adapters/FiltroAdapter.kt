@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.BaseAdapter
 import android.widget.TextView
 import com.digitalindividual.bernadete.R
+import com.digitalindividual.dao.FiltroDAO
 import com.digitalindividual.dao.PecaDAO
 import com.digitalindividual.model.Filtro
 import com.digitalindividual.model.Peca
@@ -51,9 +52,9 @@ class FiltroAdapter: BaseAdapter {
 
             var filtros: String = ""
 
-            var pecaDAO = PecaDAO()
+            var filtroDAO = FiltroDAO.instance
 
-            var listaFiltros: ArrayList<Filtro> = pecaDAO.obterFiltros(view?.context as Context, filtro.idTipoFiltro)
+            var listaFiltros: ArrayList<Filtro> = filtroDAO.obterTodos(view?.context as Context, filtro.idTipoFiltro)
 
             filtros = listaFiltros.get(0).filtro + " | "
             filtros += listaFiltros.get(1).filtro + " | "

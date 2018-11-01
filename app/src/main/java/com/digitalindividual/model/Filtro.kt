@@ -9,4 +9,6 @@ data class Filtro(var id: Int,
                   var tipoFiltro: String,
                   var listaFiltro: ArrayList<String>){
 
+    var idFiltroPeca = 0
+
 }

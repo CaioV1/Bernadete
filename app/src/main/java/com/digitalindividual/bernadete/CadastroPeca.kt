@@ -4,6 +4,7 @@ import android.app.Activity
 import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
+import android.graphics.Canvas
 import android.graphics.drawable.BitmapDrawable
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
@@ -13,11 +14,13 @@ import android.view.ViewGroup
 import android.widget.*
 import com.digitalindividual.adapters.CategoriaAdapter
 import com.digitalindividual.adapters.FiltroAdapter
+import com.digitalindividual.dao.FiltroDAO
 import com.digitalindividual.dao.PecaDAO
 import com.digitalindividual.model.Categoria
 import com.digitalindividual.model.Filtro
 import com.digitalindividual.model.Peca
 import com.digitalindividual.util.DataHolder
+import com.digitalindividual.util.ImageConvert
 import org.jetbrains.anko.*
 import java.io.FileNotFoundException
 import java.io.InputStream
@@ -26,11 +29,19 @@ class CadastroPeca : AppCompatActivity() {
 
     var COD_GALLERY: Int = 1
     lateinit var imagePeca: ImageView
+    val filtroDAO = FiltroDAO.instance
+    val listaImagens = DataHolder.instance.listaDrawable
     val listaFiltro = DataHolder.instance.listaFiltro
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.cadastro_peca)
+
+        if(intent.getIntExtra("idFiltro", 0) == 0){
+
+            listaFiltro.clear()
+
+        }
 
         val btnFiltro = findViewById<Button>(R.id.btn_filtro)
         val btnSalvar = find<Button>(R.id.btn_salvar)
@@ -55,43 +66,6 @@ class CadastroPeca : AppCompatActivity() {
 
         var filtro: Filtro? = null
 
-        if(intent.getIntExtra("id", 0) != 0){
-
-            filtro = pecaDAO.obterFiltro(this, intent.getIntExtra("id", 0))
-
-            listaFiltro.add(filtro as Filtro)
-
-            var adapter = FiltroAdapter(this, listaFiltro, "Filtro")
-
-            var layout: ViewGroup.LayoutParams = listView.layoutParams
-
-//            var tamanho = layout.height
-//
-//            tamanho += 1000
-//
-//            layout.height = tamanho
-//
-            layout.height = 200 + layout.height
-
-            toast(layout.height.toString())
-
-            listView.layoutParams = layout
-
-            listView.adapter = adapter
-
-        }
-
-        btnFiltro.setOnClickListener(View.OnClickListener {
-
-            var intent = Intent(this, com.digitalindividual.bernadete.Filtro::class.java)
-
-            intent.putExtra("Dado", "Tipo")
-            intent.putExtra("id", 0)
-
-            startActivity(intent)
-
-        })
-
         val idPeca = intent.getIntExtra("idPeca", 0)
 
         var peca: Peca? = null
@@ -104,6 +78,31 @@ class CadastroPeca : AppCompatActivity() {
             txtDescricao.setText(peca?.descricao)
             imagePeca.setImageBitmap(peca?.imagem)
 
+            listaFiltro.clear()
+
+            toast("${idPeca} e ${peca?.nome}")
+
+            var listaTemp = filtroDAO.obterPorPeca(this, peca?.id)
+
+            listaTemp.forEach {
+
+                Log.d("Filtro", it.filtro)
+                listaFiltro.add(it)
+
+            }
+
+            var filtroAdapter = FiltroAdapter(this, listaFiltro, "Filtro")
+
+            var layout: ViewGroup.LayoutParams = listView.layoutParams
+
+            var tamanho = listaFiltro.size * 250
+
+            layout.height = tamanho
+
+            listView.layoutParams = layout
+
+            listView.adapter = filtroAdapter
+
             txtTitulo.setText(resources.getString(R.string.title_update_piece))
 
         } else {
@@ -112,7 +111,77 @@ class CadastroPeca : AppCompatActivity() {
 
         }
 
-//        toast(intent.getIntExtra("idPeca", 0).toString())
+        if(intent.getIntExtra("idFiltro", 0) != 0){
+
+            filtro = filtroDAO.obterUm(this, intent.getIntExtra("idFiltro", 0))
+
+            var posicao = intent.getIntExtra("posicao", -1)
+
+            var peca = intent.getSerializableExtra("ObjetoPeca") as Peca
+
+            var drawable = listaImagens.get(0)
+
+            listaImagens.clear()
+
+            peca.imagem = ImageConvert.turnToBitmap(drawable)
+
+            txtNome.setText(peca.nome)
+            txtDescricao.setText(peca.descricao)
+            imagePeca.setImageBitmap(peca.imagem)
+
+            toast(peca.nome.toString())
+
+            if(posicao != -1){
+
+                listaFiltro.set(posicao, filtro as Filtro)
+
+            } else {
+
+                listaFiltro.add(filtro as Filtro)
+
+            }
+
+            var filtroAdapter = FiltroAdapter(this, listaFiltro, "Filtro")
+
+            var layout: ViewGroup.LayoutParams = listView.layoutParams
+
+            var tamanho = listaFiltro.size * 250
+
+            layout.height = tamanho
+
+            listView.layoutParams = layout
+
+            listView.adapter = filtroAdapter
+
+        }
+
+        btnFiltro.setOnClickListener(View.OnClickListener {
+
+            var categoria: Categoria = spinner.selectedItem as Categoria
+
+            listaImagens.add(imagePeca.drawable)
+
+            var peca = Peca(idPeca, categoria.idCategoria, txtNome.text.toString(), txtDescricao.text.toString(), "",null)
+
+            var intent = Intent(this, com.digitalindividual.bernadete.Filtro::class.java)
+
+            var listaId = ArrayList<Int>()
+
+            listaFiltro.forEach {
+
+                listaId.add(it.idTipoFiltro)
+
+            }
+
+            intent.putExtra("Lista", listaId)
+            intent.putExtra("ObjetoPeca", peca)
+            intent.putExtra("Dado", "Tipo")
+            intent.putExtra("id", 0)
+            intent.putExtra("idPeca", idPeca)
+
+            startActivity(intent)
+
+        })
 
         btnSalvar.setOnClickListener(View.OnClickListener {
 
@@ -120,24 +189,22 @@ class CadastroPeca : AppCompatActivity() {
 
             var pecaDAO = PecaDAO.instance
 
-//            var bitmap = Bitmap.createBitmap(imagePeca.drawable.intrinsicWidth, imagePeca.drawable.intrinsicHeight, Bitmap.)
-
             val bitmap:BitmapDrawable = imagePeca.drawable as BitmapDrawable
 
             var peca: Peca = Peca(0,
-                                  0,
-                                  0,
                                    categoria.idCategoria,
                                    txtNome.text.toString(),
                                    txtDescricao.text.toString(),
                                    categoria.nome,
-                                  "",
-                                  "",
                                    bitmap.bitmap)
 
             if(idPeca == 0){
 
-                if(pecaDAO.inserir(this, peca)){
+                val idPeca = pecaDAO.inserir(this, peca).toInt()
+
+//                longToast(idPeca.toString())
+
+                if(filtroDAO.inserirFiltros(this, listaFiltro, idPeca)){
 
                     toast("Cadastrado com sucesso")
 
@@ -151,7 +218,7 @@ class CadastroPeca : AppCompatActivity() {
 
                 peca.id = idPeca
 
-                if(pecaDAO.atualizar(this, peca)){
+                if(pecaDAO.atualizar(this, peca) && filtroDAO.atualizar(this, listaFiltro, idPeca)){
 
                     toast("Atualizado com sucesso")
 

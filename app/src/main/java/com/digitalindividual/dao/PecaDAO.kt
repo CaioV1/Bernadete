@@ -11,6 +11,8 @@ import com.digitalindividual.model.Categoria
 import com.digitalindividual.model.Filtro
 import com.digitalindividual.model.Peca
 import com.digitalindividual.util.DBHelper
+import com.digitalindividual.util.ImageConvert
+import org.jetbrains.anko.db.*
 import java.io.ByteArrayOutputStream
 
 /**
@@ -18,125 +20,148 @@ import java.io.ByteArrayOutputStream
  */
 class PecaDAO {
 
-    private lateinit var database: SQLiteDatabase
-
     companion object {
 
         val instance = PecaDAO()
 
     }
 
-    fun inserir(context:Context, peca: Peca): Boolean{
+    fun inserir(context:Context, peca: Peca): Long{
 
-        database = DBHelper(context).writableDatabase
+        val database = DBHelper.getInstance(context)
 
-        val values = ContentValues()
+        var idPeca: Long = 0
 
-        values.put("nome", peca.nome)
-        values.put("descricao", peca.descricao)
-        values.put("id_categoria", peca.idCategoria)
-        values.put("imagem", turnToBytes(peca.imagem))
+        database.use {
 
-        var idPeca: Long = database.insert("tbl_peca", null, values)
+            idPeca = insert("tbl_peca",
+                               "nome" to peca.nome,
+                                       "descricao" to peca.descricao,
+                                       "imagem" to ImageConvert.turnToBytes(peca.imagem),
+                                       "id_categoria" to peca.idCategoria)
 
-        if(idPeca.toInt() == -1){
+        }
 
-            return false
+//        val values = ContentValues()
+//
+//        values.put("nome", peca.nome)
+//        values.put("descricao", peca.descricao)
+//        values.put("id_categoria", peca.idCategoria)
+//        values.put("imagem", ImageConvert.turnToBytes(peca.imagem))
+//
+//        var idPeca: Long = database.insert("tbl_peca", null, values)
+//
+//        database.close()
 
-        } else {
-
-//            values?.clear()
-//
-//            var idPecaFiltro: Array<Long>? = null
-//
-//            listaFiltro.forEach {
-//
-//                values?.put("id_filtro", it)
-//                values?.put("id_peca", idPeca)
-//
-//                idPecaFiltro?.plus(database.insert("tbl_peca_filtro", null, values))
-//
-//            }
-//
-//            idPecaFiltro?.forEach {
-//
-//                if(it.toInt() == -1){
-//
-//                    return false
-//
-//                }
-//
-//            }
-//
-//            values?.clear()
-//
-//            var idPecaNotificacao: Array<Long>? = null
-//
-//            peca.idNotificacao.forEach {
-//
-//                values?.put("id_filtro", it)
-//                values?.put("id_peca", idPeca)
-//
-//                idPecaNotificacao?.plus(database.insert("tbl_peca_notificacao", null, values))
-//
-//            }
-//
-//            idPecaNotificacao?.forEach {
-//
-//                if(it.toInt() == -1){
-//
-//                    return false
-//
-//                }
-
-            return true
-
-            }
-
-        //}
+        return idPeca
 
     }
 
     fun atualizar(context: Context, peca: Peca) : Boolean{
 
-        database = DBHelper(context).writableDatabase
+        val database = DBHelper.getInstance(context)
 
-        val values = ContentValues()
+        var idPeca: Int = 0
 
-        values.put("nome", peca.nome)
-        values.put("descricao", peca.descricao)
-        values.put("id_categoria", peca.idCategoria)
-        values.put("imagem", turnToBytes(peca.imagem))
+        var envio = false
 
-        val id = database.update("tbl_peca", values, "_id_peca = ?", arrayOf(peca.id.toString()))
+        try {
 
-        return id != -1
+            database.use {
+
+                update("tbl_peca",
+                        "nome" to peca.nome,
+                        "descricao" to peca.descricao,
+                        "imagem" to ImageConvert.turnToBytes(peca.imagem),
+                        "id_categoria" to peca.idCategoria).whereSimple("id_peca = ${peca.id}").exec()
+
+            }
+
+            envio = true
+
+        } catch (e: Exception){
+
+            envio = false
+
+        }
+
+//        val values = ContentValues()
+//
+//        values.put("nome", peca.nome)
+//        values.put("descricao", peca.descricao)
+//        values.put("id_categoria", peca.idCategoria)
+//        values.put("imagem", ImageConvert.turnToBytes(peca.imagem))
+//
+//        val id = database.update("tbl_peca", values, "_id_peca = ?", arrayOf(peca.id.toString()))
+//
+//        return id != -1
+
+        return envio
 
     }
 
     fun remover(context: Context, idPeca: Int): Boolean{
 
-        database = DBHelper(context).writableDatabase
+        val database = DBHelper.getInstance(context)
 
-        var id = database.delete("tbl_peca", "_id_peca = ?", arrayOf(idPeca.toString()))
+        var id = 0
 
+        database.use {
+
+            id = delete("tbl_peca", "id_peca = ${idPeca}")
+
+        }
+
+//        database = DBHelper(context).writableDatabase
+//
+//        var id = database.delete("tbl_peca", "_id_peca = ?", arrayOf(idPeca.toString()))
+//
         return id != -1
 
     }
 
     fun obterPecas(context: Context): ArrayList<Peca>{
 
+//        val database = DBHelper.getInstance(context)
+//
+//        var listaPecas = ArrayList<Peca>()
+//
+//        database.use {
+//
+//            select("tbl_peca INNER JOIN tbl_categoria").exec {
+//
+//                var parser = rowParser{
+//
+//                    idPeca: Int,
+//                    nome: String,
+//                    descricao: String,
+//                    imagem: Bitmap,
+//                    idCategoria: Int,
+//                    categoria: String->
+//
+//                    Peca(idPeca, idCategoria, nome, descricao, categoria, imagem)
+//
+//                }
+//
+//                listaPecas = parseList(parser) as ArrayList<Peca>
+//
+//            }
+//
+//        }
+//
+//        return listaPecas
+
         var listaPecas = ArrayList<Peca>()
 
-        database = DBHelper(context).readableDatabase
+        val database = DBHelper(context).readableDatabase
 
-        var SQL = "SELECT p.*, c.nome FROM tbl_peca AS p INNER JOIN tbl_categoria AS c ON p.id_categoria = c._id_categoria ORDER BY _id_peca DESC"
+        var SQL = "SELECT p.*, c.nome FROM tbl_peca AS p INNER JOIN tbl_categoria AS c ON p.id_categoria = c.id_categoria ORDER BY id_peca DESC"
 
         var cursor = database.rawQuery(SQL, null)
 
         while (cursor.moveToNext()){
 
-            var peca = Peca(cursor.getInt(0), 0, 0, cursor.getInt(3), cursor.getString(1), cursor.getString(2), cursor.getString(5), "", "", turnToBitmap(cursor.getBlob(4)))
+            var peca = Peca(cursor.getInt(0), cursor.getInt(4), cursor.getString(1), cursor.getString(2), cursor.getString(5), ImageConvert.turnToBitmap(cursor.getBlob(3)))
 
             listaPecas.add(peca)
 
@@ -150,17 +175,48 @@ class PecaDAO {
 
     fun obterUm(context: Context, idPeca: Int): Peca? {
 
+//        val database = DBHelper.getInstance(context)
+//
+//        var peca:Peca? = null
+//
+//        database.use {
+//
+//            select("tbl_peca INNER JOIN tbl_categoria").whereArgs("id_peca = ${idPeca}").exec {
+//
+//                var parser = rowParser{
+//
+//                    idPeca: Int,
+//                    nome: String,
+//                    descricao: String,
+//                    imagem: Bitmap,
+//                    idCategoria: Int,
+//                    categoria: String->
+//
+//                    Peca(idPeca, idCategoria, nome, descricao, categoria, imagem)
+//
+//                }
+//
+//                peca = parseSingle(parser)
+//
+//            }
+//
+//        }
+//
+//        return peca
+
         var peca :Peca? = null
 
-        database = DBHelper(context).readableDatabase
+        val database = DBHelper(context).readableDatabase
 
-        var SQL = "SELECT p.*, c.nome FROM tbl_peca AS p INNER JOIN tbl_categoria AS c ON p.id_categoria = c._id_categoria WHERE _id_peca = ${idPeca} ORDER BY _id_peca DESC"
+        var SQL = "SELECT p.*, c.nome FROM tbl_peca AS p INNER JOIN tbl_categoria AS c ON p.id_categoria = c.id_categoria WHERE p.id_peca = ${idPeca} ORDER BY id_peca DESC"
+
+        Log.d("77777777777777777", "$SQL")
 
         var cursor = database.rawQuery(SQL, null)
 
         if(cursor.moveToNext()){
 
-            peca = Peca(cursor.getInt(0), 0, 0, cursor.getInt(3), cursor.getString(1), cursor.getString(2), cursor.getString(5), "", "", turnToBitmap(cursor.getBlob(4)))
+            peca = Peca(cursor.getInt(0), cursor.getInt(4), cursor.getString(1), cursor.getString(2), cursor.getString(5), ImageConvert.turnToBitmap(cursor.getBlob(3)))
 
         }
 
@@ -170,142 +226,52 @@ class PecaDAO {
 
     }
 
-    fun obterFiltros(context: Context, idTipo: Int): ArrayList<Filtro>{
+    fun obterCategoria(context: Context): ArrayList<Categoria>{
 
-        val listaFiltro = ArrayList<Filtro>()
+        val database = DBHelper.getInstance(context)
 
-        database = DBHelper(context).readableDatabase
+        var listaPecas = ArrayList<Categoria>()
 
-        val SQL: String = "SELECT f.*, t.nome FROM tbl_filtro AS f INNER JOIN tbl_tipo_filtro AS t ON f.id_tipo = t._id_tipo WHERE id_tipo = " + idTipo
+        database.use {
 
-        val cursor:Cursor = database.rawQuery(SQL, null)
+            select("tbl_categoria").exec {
 
-        while(cursor.moveToNext()){
+                var parser = rowParser{
 
-            val filtro = Filtro(cursor.getInt(0), cursor.getInt(2), cursor.getString(1), cursor.getString(3), ArrayList())
+                    idCategoria: Int,
+                    nome: String->
 
-            Log.d("!!", cursor.getString(3))
+                    Categoria(idCategoria, nome)
 
-            listaFiltro.add(filtro)
+                }
 
-        }
-
-        cursor.close()
-
-        return listaFiltro
-
-    }
-
-    fun obterFiltro(context: Context, idFiltro: Int): Filtro?{
-
-        var filtro: Filtro? = null
-
-        database = DBHelper(context).readableDatabase
-
-        val SQL: String = "SELECT f.*, t.nome FROM tbl_filtro AS f INNER JOIN tbl_tipo_filtro AS t ON f.id_tipo = t._id_tipo WHERE _id_filtro = " + idFiltro
-
-        val cursor:Cursor = database.rawQuery(SQL, null)
-
-        if(cursor.moveToNext()){
-
-            filtro = Filtro(cursor.getInt(0), cursor.getInt(2), cursor.getString(1), cursor.getString(3), ArrayList())
-
-            Log.d("!!", cursor.getString(3))
-
-        }
-
-        cursor.close()
-
-        return filtro
-
-    }
-
-    fun obterTipoFiltro(context: Context): ArrayList<Filtro>{
-
-        val listaTipo = ArrayList<Filtro>()
-
-        val listaFiltro = ArrayList<String>()
-
-        database = DBHelper(context).readableDatabase
-
-        var SQL: String = "SELECT * FROM tbl_tipo_filtro"
-
-        var cursor:Cursor = database.rawQuery(SQL, null)
-
-        var cursorFiltro: Cursor
-
-        while(cursor.moveToNext()){
-
-            SQL = "SELECT nome FROM tbl_filtro WHERE id_tipo = "+cursor.getInt(0)
-
-            cursorFiltro = database.rawQuery(SQL, null)
-
-            listaFiltro.clear()
-
-            while(cursorFiltro.moveToNext()){
-
-                val string = cursorFiltro.getString(0)
-
-                listaFiltro.add(string)
+                listaPecas = parseList(parser) as ArrayList<Categoria>
 
             }
 
-            cursorFiltro.close()
-
-            var filtro = Filtro(0, cursor.getInt(0), "", cursor.getString(1), listaFiltro)
-
-            Log.d("!!", filtro.listaFiltro.get(0))
-
-            listaTipo.add(filtro)
-
-//            Log.d("!!", filtro.listaFiltro?.get(0))
-
         }
 
-        cursor.close()
+        return listaPecas
 
-        return listaTipo
-
-    }
-
-    fun obterCategoria(context: Context): ArrayList<Categoria>{
-
-        var listaCategoria = ArrayList<Categoria>()
-
-        database = DBHelper(context).readableDatabase
-
-        var SQL = "SELECT * FROM tbl_categoria"
-
-        var cursor = database.rawQuery(SQL, null)
-
-        while (cursor.moveToNext()){
-
-            var categoria = Categoria(cursor.getInt(0), cursor.getString(1))
-
-            listaCategoria.add(categoria)
-
-        }
-
-        cursor.close()
-
-        return listaCategoria
-
-    }
-
-    private fun turnToBytes(bitmap: Bitmap): ByteArray{
-
-        var stream: ByteArrayOutputStream = ByteArrayOutputStream()
-
-        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream)
-        bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream)
-
-        return stream.toByteArray()
-
-    }
-
-    private fun turnToBitmap(img: ByteArray): Bitmap{
-
-        return BitmapFactory.decodeByteArray(img, 0 , img.size)
+//        var listaCategoria = ArrayList<Categoria>()
+//
+//        database = DBHelper(context).readableDatabase
+//
+//        var SQL = "SELECT * FROM tbl_categoria"
+//
+//        var cursor = database.rawQuery(SQL, null)
+//
+//        while (cursor.moveToNext()){
+//
+//            var categoria = Categoria(cursor.getInt(0), cursor.getString(1))
+//
+//            listaCategoria.add(categoria)
+//
+//        }
+//
+//        cursor.close()
+//
+//        return listaCategoria
 
     }
 
