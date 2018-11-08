@@ -12,11 +12,14 @@ import com.digitalindividual.bernadete.R
 import com.digitalindividual.model.Categoria
 import com.digitalindividual.model.Promocao
 import com.squareup.picasso.Picasso
+import org.jetbrains.anko.find
 
 class CategoriaAdapter : BaseAdapter{
 
     private var listaCategoria = ArrayList<Categoria>()
     private var context: Context
+
+    var position = 0
 
     constructor(context: Context, listaCategoria: ArrayList<Categoria>):super(){
 

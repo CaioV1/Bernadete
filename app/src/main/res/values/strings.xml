@@ -1,5 +1,7 @@
 <resources>
-    <string name="ip_api">http://10.0.2.2:8888/promocao</string>
+    <string name="ip_api_sale">http://10.0.2.2:8888/promocao</string>
+    <string name="ip_api_image">http://10.0.2.2:8888/imagens/</string>
+    <string name="ip_api_login">http://10.0.2.2:8888/autenticacao</string>
     <string name="app_name">Bernadete</string>
     <string name="title_main">Guarda Roupa</string>
     <string name="title_look">Visual</string>
@@ -15,6 +17,13 @@
     <string name="hint_piece_description">Digite informações extras sobre a peça</string>
     <string name="title_register_piece">Cadastro de Peça de Roupa</string>
     <string name="title_update_piece">Atualização de Peça de Roupa</string>
+    <string name="api_error_connection">Não há conexão com a Internet.</string>
+    <string name="no_clothes">Não há roupa cadastradas.</string>
+    <string name="autentication_title">Autenticação</string>
+    <string name="email_title">E-mail</string>
+    <string name="password_title">Senha</string>
+    <string name="register">Cadastre-se</string>
+    <string name="image_warning">Clique na câmera para escolher a sua imagem</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

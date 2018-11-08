@@ -53,6 +53,8 @@ class FiltroDAO {
 
         }
 
+        database.close()
+
         return envio
 
 //        var listaId = ArrayList<Long>()
@@ -143,6 +145,8 @@ class FiltroDAO {
 
         cursor.close()
 
+        database.close()
+
         return listaFiltro
 
     }
@@ -166,6 +170,8 @@ class FiltroDAO {
         }
 
         cursor.close()
+
+        database.close()
 
         return filtro
 
@@ -196,6 +202,8 @@ class FiltroDAO {
         }
 
         cursor.close()
+
+        database.close()
 
         return listaFiltro
 
@@ -245,6 +253,8 @@ class FiltroDAO {
 
         cursor.close()
 
+        database.close()
+
         return listaTipo
 
     }
@@ -260,6 +270,8 @@ class FiltroDAO {
             id = delete("tbl_peca_filtro", "id_peca = $idPeca")
 
         }
+
+        database.close()
 
         return id != -1
 

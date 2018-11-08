@@ -32,6 +32,11 @@ class DBHelper: ManagedSQLiteOpenHelper {
 
     override fun onCreate(database: SQLiteDatabase) {
 
+        database.createTable("tbl_usuario", true,
+                             "id_usuario" to INTEGER + PRIMARY_KEY + AUTOINCREMENT,
+                                       "email" to TEXT + NOT_NULL,
+                                       "nome" to TEXT + NOT_NULL)
+
         database.createTable("tbl_categoria", true,
                 "id_categoria" to INTEGER + PRIMARY_KEY + AUTOINCREMENT,
                 "nome" to TEXT + NOT_NULL)

@@ -22,6 +22,18 @@
         android:id="@+id/vp_closet">
     </android.support.v4.view.ViewPager>
 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textStyle="bold"
+        android:layout_marginTop="280dp"
+        android:gravity="center_horizontal"
+        android:visibility="gone"
+        android:textSize="20sp"
+        android:id="@+id/txt_no_clothes"
+        android:text="@string/no_clothes"
+        android:textColor="@color/colorTextAlternative"/>
+
     <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:fab="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
@@ -33,16 +45,16 @@
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:layout_alignParentRight="true"
-            android:layout_marginBottom="11dp"
-            android:layout_marginLeft="11dp"
-            android:layout_marginRight="11dp"
+            android:layout_marginBottom="30dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
             android:scaleType="center"
             fab:menu_animationDelayPerItem="55"
             fab:menu_backgroundColor="@android:color/transparent"
             fab:menu_buttonSpacing="0dp"
-            fab:menu_colorNormal="@color/colorPrimary"
-            fab:menu_colorPressed="@color/colorPrimary"
-            fab:menu_colorRipple="@color/colorPrimary"
+            fab:menu_colorNormal="@color/cyanAccent"
+            fab:menu_colorPressed="@color/cyanAccent"
+            fab:menu_colorRipple="@color/cyanAccent"
             fab:menu_fab_size="normal"
             fab:menu_icon="@android:drawable/ic_menu_more"
             fab:menu_openDirection="up"
@@ -50,15 +62,15 @@
             fab:menu_shadowRadius="4dp"
             fab:menu_shadowXOffset="1dp"
             fab:menu_shadowYOffset="4dp"
-            fab:menu_showShadow="true">
+            fab:menu_showShadow="false">
 
             <com.github.clans.fab.FloatingActionButton
                 android:id="@+id/floating_button_add"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@android:drawable/ic_menu_add"
-                fab:fab_colorNormal="@color/colorPrimary"
-                fab:fab_colorPressed="@color/colorPrimary"
+                fab:fab_colorNormal="@color/cyanAccent"
+                fab:fab_colorPressed="@color/cyanAccent"
                 fab:fab_size="mini" />
 
             <com.github.clans.fab.FloatingActionButton
@@ -66,8 +78,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@android:drawable/ic_menu_edit"
-                fab:fab_colorNormal="@color/colorPrimary"
-                fab:fab_colorPressed="@color/colorPrimary"
+                fab:fab_colorNormal="@color/cyanAccent"
+                fab:fab_colorPressed="@color/cyanAccent"
                 fab:fab_size="mini" />
 
             <com.github.clans.fab.FloatingActionButton
@@ -75,8 +87,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@android:drawable/ic_menu_delete"
-                fab:fab_colorNormal="@color/colorPrimary"
-                fab:fab_colorPressed="@color/colorPrimary"
+                fab:fab_colorNormal="@color/cyanAccent"
+                fab:fab_colorPressed="@color/cyanAccent"
                 fab:fab_size="mini" />
         </com.github.clans.fab.FloatingActionMenu>
     </RelativeLayout>

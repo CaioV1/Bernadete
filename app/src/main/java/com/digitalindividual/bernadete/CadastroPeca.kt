@@ -8,6 +8,7 @@ import android.graphics.Canvas
 import android.graphics.drawable.BitmapDrawable
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.text.InputType
 import android.util.Log
 import android.view.View
 import android.view.ViewGroup
@@ -78,16 +79,22 @@ class CadastroPeca : AppCompatActivity() {
             txtDescricao.setText(peca?.descricao)
             imagePeca.setImageBitmap(peca?.imagem)
 
-            listaFiltro.clear()
+            spinner.setSelection(getPosition(spinner, peca?.idCategoria))
 
-            toast("${idPeca} e ${peca?.nome}")
+            if(intent.getIntExtra("idFiltro", 0) == 0) {
 
-            var listaTemp = filtroDAO.obterPorPeca(this, peca?.id)
+                listaFiltro.clear()
 
-            listaTemp.forEach {
+                toast("${idPeca} e ${peca?.nome}")
 
-                Log.d("Filtro", it.filtro)
-                listaFiltro.add(it)
+                var listaTemp = filtroDAO.obterPorPeca(this, peca?.id)
+
+                listaTemp.forEach {
+
+                    Log.d("Filtro", it.filtro)
+                    listaFiltro.add(it)
+
+                }
 
             }
 
@@ -112,6 +119,12 @@ class CadastroPeca : AppCompatActivity() {
         }
 
         if(intent.getIntExtra("idFiltro", 0) != 0){
+
+            listaFiltro.forEach {
+
+                Log.d("Filtros Intent", it.filtro)
+
+            }
 
             filtro = filtroDAO.obterUm(this, intent.getIntExtra("idFiltro", 0))
 
@@ -233,6 +246,40 @@ class CadastroPeca : AppCompatActivity() {
             startActivity(intentFor<MainActivity>("posicao" to intent.getIntExtra("posicao", 0)))
 
         })
+
+    }
+
+    override fun onBackPressed() {
+
+        super.onBackPressed()
+
+        startActivity(intentFor<MainActivity>())
+
+    }
+
+    fun getPosition(spinner: Spinner, idItem: Int?): Int{
+
+        var categoria: Categoria? = null
+
+        var posicao = 0
+
+        var i = 0
+
+        while(i < spinner.adapter.count){
+
+            categoria = spinner.getItemAtPosition(i) as Categoria?
+
+            if(idItem == categoria?.idCategoria){
+
+                posicao = i
+
+            }
+
+            i++
+
+        }
+
+        return posicao
 
     }
 

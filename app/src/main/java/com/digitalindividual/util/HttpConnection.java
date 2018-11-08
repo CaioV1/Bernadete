@@ -116,6 +116,6 @@ public class HttpConnection {
             return  response;
         }catch (Exception excep){
             excep.printStackTrace();}
-        return response;
+            return "";
     }
 }

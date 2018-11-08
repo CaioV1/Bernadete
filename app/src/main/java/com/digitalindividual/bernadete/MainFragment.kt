@@ -11,7 +11,9 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import android.widget.Toast
+import android.widget.Toolbar
 import com.digitalindividual.adapters.ClosetAdapter
 import com.digitalindividual.dao.PecaDAO
 import com.digitalindividual.model.Peca
@@ -35,10 +37,19 @@ class MainFragment : Fragment() {
         val btnRemover = view.find<FloatingActionButton>(R.id.floating_button_delete)
         val btnAdicionar = view.find<FloatingActionButton>(R.id.floating_button_add)
         val btnEditar = view.find<FloatingActionButton>(R.id.floating_button_edit)
+        val txtMessage = view.find<TextView>(R.id.txt_no_clothes)
 
         var pecaDAO = PecaDAO.instance
 
         val listaPecas = pecaDAO.obterPecas(view.context)
+
+        if(listaPecas.count() == 0){
+
+            vpCloset.visibility = View.GONE
+            txtMessage.visibility = View.VISIBLE
+
+
+        }
 
 //        idPeca = listaPecas.get(0).id
 
@@ -115,7 +126,7 @@ class MainFragment : Fragment() {
 
                 this@MainFragment.position = position
 
-                Toast.makeText(view.context, "Posição = ${position} | ID = ${idPeca} | Tamanho = ${listaPecas.size} | Nome = ${listaPecas.get(position).nome}", Toast.LENGTH_LONG).show()
+                //Toast.makeText(view.context, "Posição = ${position} | ID = ${idPeca} | Tamanho = ${listaPecas.size} | Nome = ${listaPecas.get(position).nome}", Toast.LENGTH_LONG).show()
 
             }
 

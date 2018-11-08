@@ -48,7 +48,7 @@ class PromocaoAdapter : BaseAdapter{
 
         Log.d("Imagem", item.caminhoImagem)
 
-        Picasso.with(view?.context).load("http://10.0.2.2:8888/imagens/"+item.caminhoImagem).into(imgProduto)
+        Picasso.with(view?.context).load(view?.resources?.getString(R.string.ip_api_image)+item.caminhoImagem).into(imgProduto)
 
         return view
 

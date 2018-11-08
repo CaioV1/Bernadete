@@ -1,5 +1,6 @@
 package com.digitalindividual.bernadete
 
+import android.content.res.Configuration
 import android.os.Bundle
 import android.support.design.widget.BottomNavigationView
 import android.support.v4.app.Fragment
@@ -9,6 +10,8 @@ import android.support.v7.app.ActionBarDrawerToggle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.Toolbar
 import android.view.MenuItem
+import android.view.View
+import org.jetbrains.anko.toast
 
 class MainActivity : AppCompatActivity() {
 
@@ -18,7 +21,43 @@ class MainActivity : AppCompatActivity() {
 
     lateinit var drawer: DrawerLayout
 
-    
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_main)
+
+        toolbar = findViewById<Toolbar>(R.id.my_toolbar)
+
+        setSupportActionBar(toolbar)
+
+        drawer = findViewById<DrawerLayout>(R.id.activity_main)
+        toggle = object : ActionBarDrawerToggle(this, drawer, toolbar, R.string.open, R.string.close){
+
+            override fun onDrawerOpened(drawerView: View?) {
+                super.onDrawerOpened(drawerView)
+                invalidateOptionsMenu()
+            }
+
+            override fun onDrawerClosed(drawerView: View?) {
+                super.onDrawerClosed(drawerView)
+                invalidateOptionsMenu()
+            }
+
+        }
+
+        toggle.isDrawerIndicatorEnabled = true
+        drawer.addDrawerListener(toggle)
+
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.setHomeButtonEnabled(true)
+
+        val bottomNavegation = findViewById<BottomNavigationView>(R.id.navigation)
+
+        val principal = MainFragment.newInstance()
+        openFragment(principal)
+
+        bottomNavegation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener)
+
+    }
 
     private val mOnNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener { item ->
         when (item.itemId) {
@@ -63,33 +102,34 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+    override fun onBackPressed() {
 
-        toolbar = findViewById<Toolbar>(R.id.my_toolbar)
+        super.onBackPressed()
 
-        drawer = findViewById<DrawerLayout>(R.id.activity_main)
-        val toggle: ActionBarDrawerToggle = ActionBarDrawerToggle(this, drawer, R.string.open, R.string.close)
+        if(supportFragmentManager.backStackEntryCount == 0){
 
-        drawer.addDrawerListener(toggle)
+            finishAffinity()
+
+        } else {
+
+            fragmentManager.popBackStack()
+
+        }
+
+    }
+
+    override fun onPostCreate(savedInstanceState: Bundle?) {
+        super.onPostCreate(savedInstanceState)
 
         toggle.syncState()
 
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+    }
 
-        val bottomNavegation = findViewById<BottomNavigationView>(R.id.navigation)
+    override fun onConfigurationChanged(newConfig: Configuration?) {
+        super.onConfigurationChanged(newConfig)
 
-        toolbar.title = "Guarda Roupa"
+        toggle.onConfigurationChanged(newConfig)
 
-        val principal = MainFragment.newInstance()
-        openFragment(principal)
-
-        setSupportActionBar(toolbar)
-
-        toolbar.setNavigationIcon(R.drawable.look)
-
-        bottomNavegation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener)
     }
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {

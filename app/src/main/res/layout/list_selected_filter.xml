@@ -5,6 +5,6 @@
     android:layout_height="wrap_content"
     android:padding="10dp"
     android:textSize="18sp"
-    android:textColor="@color/colorPrimary"
+    android:textColor="@color/colorAccent"
     android:id="@+id/txt_secundario"
     xmlns:android="http://schemas.android.com/apk/res/android" />

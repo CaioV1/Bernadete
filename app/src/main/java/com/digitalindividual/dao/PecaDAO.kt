@@ -53,6 +53,8 @@ class PecaDAO {
 //
 //        database.close()
 
+        database.close()
+
         return idPeca
 
     }
@@ -85,6 +87,8 @@ class PecaDAO {
 
         }
 
+        database.close()
+
 //        val values = ContentValues()
 //
 //        values.put("nome", peca.nome)
@@ -116,6 +120,8 @@ class PecaDAO {
 //
 //        var id = database.delete("tbl_peca", "_id_peca = ?", arrayOf(idPeca.toString()))
 //
+        database.close()
+
         return id != -1
 
     }
@@ -168,6 +174,8 @@ class PecaDAO {
         }
 
         cursor.close()
+
+        database.close()
 
         return listaPecas
 
@@ -222,6 +230,8 @@ class PecaDAO {
 
         cursor.close()
 
+        database.close()
+
         return peca
 
     }
@@ -250,6 +260,8 @@ class PecaDAO {
             }
 
         }
+
+        database.close()
 
         return listaPecas
 

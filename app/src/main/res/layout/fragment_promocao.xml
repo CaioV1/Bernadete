@@ -4,6 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:layout_gravity="center_vertical"
     tools:context="com.digitalindividual.bernadete.PromocaoFragment">
 
     <RelativeLayout
@@ -46,6 +47,18 @@
             android:id="@+id/list"
             android:layout_below="@id/tab">
         </ListView>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:text="@string/api_error_connection"
+            android:textStyle="bold"
+            android:textColor="@color/colorPrimary"
+            android:textSize="20sp"
+            android:visibility="gone"
+            android:layout_marginTop="300dp"
+            android:id="@+id/txt_error_api"/>
 
     </RelativeLayout>
 
