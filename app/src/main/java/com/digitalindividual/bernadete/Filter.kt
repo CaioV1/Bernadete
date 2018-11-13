@@ -3,19 +3,14 @@ package com.digitalindividual.bernadete
 import android.content.Context
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
-import android.widget.ArrayAdapter
 import android.widget.ListView
-import com.digitalindividual.adapters.FiltroAdapter
+import com.digitalindividual.adapters.FilterAdapter
 import com.digitalindividual.dao.FiltroDAO
-import com.digitalindividual.dao.PecaDAO
 import com.digitalindividual.model.Filtro
 import com.digitalindividual.model.Peca
-import com.digitalindividual.util.DataHolder
 import org.jetbrains.anko.intentFor
-import org.jetbrains.anko.toast
 
-class Filtro : AppCompatActivity() {
+class Filter : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -41,7 +36,7 @@ class Filtro : AppCompatActivity() {
 
         }
 
-        val adapter: FiltroAdapter = FiltroAdapter(context, lista, tipo)
+        val adapter: FilterAdapter = FilterAdapter(context, lista, tipo)
 
         listView.adapter = adapter
 
@@ -64,7 +59,7 @@ class Filtro : AppCompatActivity() {
                 var peca = intent.getSerializableExtra("ObjetoPeca") as Peca
                 val idPeca = peca.id
 
-                startActivity(intentFor<CadastroPeca>("Dado" to "Filtro", "idFiltro" to filtro.id, "posicao" to posicao, "ObjetoPeca" to peca, "idPeca" to idPeca))
+                startActivity(intentFor<RegisterPiece>("Dado" to "Filtro", "idFiltro" to filtro.id, "posicao" to posicao, "ObjetoPeca" to peca, "idPeca" to idPeca))
 
 
             } else {
@@ -72,7 +67,7 @@ class Filtro : AppCompatActivity() {
                 val lista = intent.getIntegerArrayListExtra("Lista")
                 val peca = intent.getSerializableExtra("ObjetoPeca")
 
-                startActivity(intentFor<com.digitalindividual.bernadete.Filtro>("Dado" to "Filtro", "id" to filtro.idTipoFiltro, "Lista" to lista, "ObjetoPeca" to peca))
+                startActivity(intentFor<com.digitalindividual.bernadete.Filter>("Dado" to "Filtro", "id" to filtro.idTipoFiltro, "Lista" to lista, "ObjetoPeca" to peca))
 
             }
 

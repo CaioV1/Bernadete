@@ -11,7 +11,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.*
 import com.digitalindividual.adapters.CategoryAdapter
-import com.digitalindividual.adapters.FiltroAdapter
+import com.digitalindividual.adapters.FilterAdapter
 import com.digitalindividual.dao.FiltroDAO
 import com.digitalindividual.dao.PecaDAO
 import com.digitalindividual.model.Categoria
@@ -23,7 +23,7 @@ import org.jetbrains.anko.*
 import java.io.FileNotFoundException
 import java.io.InputStream
 
-class CadastroPeca : AppCompatActivity() {
+class RegisterPiece: AppCompatActivity() {
 
     var COD_GALLERY: Int = 1
     lateinit var imagePeca: ImageView
@@ -95,7 +95,7 @@ class CadastroPeca : AppCompatActivity() {
 
             }
 
-            var filtroAdapter = FiltroAdapter(this, listaFiltro, "Filtro")
+            var filtroAdapter = FilterAdapter(this, listaFiltro, "Filtro")
 
             var layout: ViewGroup.LayoutParams = listView.layoutParams
 
@@ -151,7 +151,7 @@ class CadastroPeca : AppCompatActivity() {
 
             }
 
-            var filtroAdapter = FiltroAdapter(this, listaFiltro, "Filtro")
+            var filtroAdapter = FilterAdapter(this, listaFiltro, "Filtro")
 
             var layout: ViewGroup.LayoutParams = listView.layoutParams
 
@@ -173,7 +173,7 @@ class CadastroPeca : AppCompatActivity() {
 
             var peca = Peca(idPeca, categoria.idCategoria, txtNome.text.toString(), txtDescricao.text.toString(), "",null)
 
-            var intent = Intent(this, com.digitalindividual.bernadete.Filtro::class.java)
+            var intent = Intent(this, com.digitalindividual.bernadete.Filter::class.java)
 
             var listaId = ArrayList<Int>()
 

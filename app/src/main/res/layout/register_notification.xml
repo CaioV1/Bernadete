@@ -23,6 +23,7 @@
             android:textSize="22sp"
             android:textStyle="bold"
             android:textColor="@color/colorTextAlternative"
+            android:text="Cadastro de Notificação"
             android:id="@+id/txt_titulo_cadastro"/>
 
 
@@ -34,7 +35,7 @@
             android:textSize="18sp"
             android:textStyle="bold"
             android:textColor="@color/colorTextAlternative"
-            android:text="@string/name"/>
+            android:text="@string/title"/>
 
         <EditText
             android:layout_width="match_parent"
@@ -44,9 +45,44 @@
             android:textColor="@color/colorTextAlternative"
             android:textColorHint="@color/colorCyan"
             android:backgroundTint="@color/colorTextAlternative"
-            android:hint="@string/hint_piece_name"
-            android:id="@+id/txt_peca_nome"/>
+            android:hint="@string/hint_title_notification"
+            android:id="@+id/txt_titulo_notifi"/>
 
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:gravity="left"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:textColor="@color/colorTextAlternative"
+            android:text="@string/date_title"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingTop="10dp"
+                android:layout_gravity="left"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:textColor="@color/colorCyan"
+                android:id="@+id/txt_data_notificacao"/>
+
+            <ImageView
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_marginLeft="30dp"
+                android:tint="@color/colorAccent"
+                android:backgroundTint="@color/colorAccent"
+                android:src="@drawable/calendar"
+                android:onClick="openDatePicker"/>
+
+        </LinearLayout>
 
         <TextView
             android:layout_width="match_parent"
@@ -65,8 +101,8 @@
             android:textColor="@color/colorTextAlternative"
             android:textColorHint="@color/colorCyan"
             android:backgroundTint="@color/colorTextAlternative"
-            android:hint="@string/hint_piece_description"
-            android:id="@+id/txt_data_notificacao"/>
+            android:hint="@string/hint_notifi_description"
+            android:id="@+id/txt_descricao_notifi"/>
 
         <TextView
             android:layout_width="match_parent"
@@ -75,7 +111,7 @@
             android:gravity="left"
             android:textSize="18sp"
             android:textColor="@color/colorTextAlternative"
-            android:text="@string/description"/>
+            android:text="@string/place_title"/>
 
         <EditText
             android:layout_width="match_parent"
@@ -85,8 +121,8 @@
             android:textColor="@color/colorTextAlternative"
             android:textColorHint="@color/colorCyan"
             android:backgroundTint="@color/colorTextAlternative"
-            android:hint="@string/hint_piece_description"
-            android:id="@+id/txt_peca"/>
+            android:hint="@string/hint_notifi_place"
+            android:id="@+id/txt_local"/>
 
         <Button
             android:layout_width="match_parent"
@@ -95,8 +131,8 @@
             android:text="@string/save"
             android:textColor="@color/colorPrimaryDark"
             android:backgroundTint="@color/colorAccent"
-            android:onClick="teste"
-            android:id="@+id/btn_salvar"/>
+            android:id="@+id/btn_salvar"
+            android:onClick="insertNotification"/>
 
     </LinearLayout>
 

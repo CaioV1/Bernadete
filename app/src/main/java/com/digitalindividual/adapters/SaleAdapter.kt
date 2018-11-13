@@ -15,7 +15,7 @@ import com.squareup.picasso.Picasso
 /**
  * Created by 17170077 on 03/10/2018.
  */
-class PromocaoAdapter : BaseAdapter{
+class SaleAdapter : BaseAdapter{
 
     private var listaPromocoes = ArrayList<Promocao>()
     private var context:Context

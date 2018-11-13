@@ -9,8 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ListView
 import android.widget.TextView
-import android.widget.Toast
-import com.digitalindividual.adapters.PromocaoAdapter
+import com.digitalindividual.adapters.SaleAdapter
 import com.digitalindividual.model.Promocao
 import com.digitalindividual.util.HttpConnection
 import org.jetbrains.anko.*
@@ -20,9 +19,9 @@ import java.lang.reflect.InvocationTargetException
 import java.net.ConnectException
 
 
-class PromocaoFragment : Fragment() {
+class SaleFragment : Fragment() {
 
-    private var adapter: PromocaoAdapter? = null
+    private var adapter: SaleAdapter? = null
     private lateinit var listView: ListView
     private lateinit var txtError: TextView
 
@@ -145,7 +144,7 @@ class PromocaoFragment : Fragment() {
 
                         }
 
-                        adapter = PromocaoAdapter(context, listaPromocoes)
+                        adapter = SaleAdapter(context, listaPromocoes)
 
                         listView.adapter = adapter
 
@@ -178,7 +177,7 @@ class PromocaoFragment : Fragment() {
     }
 
     companion object {
-        fun newInstance(): PromocaoFragment = PromocaoFragment()
+        fun newInstance(): SaleFragment = SaleFragment()
     }
 
 }

@@ -113,7 +113,7 @@ class MainActivity : AppCompatActivity(){
 
                 toolbar.title = "Promoções"
 
-                val promocao = PromocaoFragment.newInstance()
+                val promocao = SaleFragment.newInstance()
                 openFragment(promocao)
 
                 return@OnNavigationItemSelectedListener true

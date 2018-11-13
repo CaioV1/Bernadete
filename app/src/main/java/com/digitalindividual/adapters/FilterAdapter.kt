@@ -17,7 +17,7 @@ import kotlinx.android.synthetic.main.activity_filtro.view.*
 /**
  * Created by 17170077 on 18/10/2018.
  */
-class FiltroAdapter: BaseAdapter {
+class FilterAdapter: BaseAdapter {
 
     private var context:Context
     private var arrayList = ArrayList<Filtro>()

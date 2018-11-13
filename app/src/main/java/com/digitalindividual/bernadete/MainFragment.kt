@@ -61,7 +61,7 @@ class MainFragment : Fragment() {
 
         btnAdicionar.setOnClickListener(View.OnClickListener {
 
-            val intent = Intent(view.context, CadastroPeca::class.java)
+            val intent = Intent(view.context, RegisterPiece::class.java)
 
             startActivity(intent)
 
@@ -103,7 +103,7 @@ class MainFragment : Fragment() {
 
         btnEditar.setOnClickListener(View.OnClickListener {
 
-            val intent = Intent(view.context, CadastroPeca::class.java)
+            val intent = Intent(view.context, RegisterPiece::class.java)
 
             intent.putExtra("idPeca", idPeca)
             intent.putExtra("posicao", this.position)

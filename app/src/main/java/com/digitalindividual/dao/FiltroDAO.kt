@@ -47,7 +47,7 @@ class FiltroDAO {
 
         listaId.forEach {
 
-            Log.d("$$$$$$$$$$!!!!!!", it.toString())
+//            Log.d("$$$$$$$$$$!!!!!!", it.toString())
 
             envio = it.toInt() != -1
 
@@ -56,52 +56,6 @@ class FiltroDAO {
         database.close()
 
         return envio
-
-//        var listaId = ArrayList<Long>()
-//
-//        listaFiltro.forEach {
-//
-//            database = DBHelper(context).writableDatabase
-//
-//            val values = ContentValues()
-//
-//            try {
-//
-//                values.put("id_filtro", it.id)
-//                values.put("id_peca", idPeca)
-//                Log.d("FILTRO", it.filtro)
-//
-//                listaId.add(database.insertOrThrow("tbl_peca_filtro", null, values))
-//
-//            } catch (e: Exception){
-//
-//                Log.d("ERRO!!!!!!", e.message)
-//
-//            }
-//
-//            database.close()
-//
-//        }
-//
-//        var envio = false
-//
-//        listaId?.forEach {
-//
-//            Log.d("$$$$$$$$$$!!!!!!", it.toString())
-//
-//            if(it.toInt() == -1){
-//
-//                envio = false
-//
-//            } else {
-//
-//                envio = true
-//
-//            }
-//
-//        }
-//
-//        return envio
 
     }
 
@@ -116,16 +70,6 @@ class FiltroDAO {
     }
 
     fun obterTodos(context: Context, idTipo: Int): ArrayList<Filtro>{
-
-//        val database = DBHelper.getInstance(context)
-//
-//        val listaFiltro = ArrayList<Filtro>()
-//
-//        database.use {
-//
-//            select("tbl_filtro INNER JOIN tbl_tipo_filtro")
-//
-//        }
 
         val listaFiltro = ArrayList<Filtro>()
 
@@ -275,11 +219,6 @@ class FiltroDAO {
 
         return id != -1
 
-//        val database = DBHelper(context).writableDatabase
-//
-//        var id = database.delete("tbl_peca_filtro", "id_peca = ?", arrayOf(idPeca.toString()))
-//
-//        return id != -1
 
     }
 
