@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true"
+    tools:context=".RegisterNotification">
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="20dp"
+        android:background="@drawable/gradient_effect"
+        tools:context="com.digitalindividual.bernadete.CadastroPeca"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:textSize="22sp"
+            android:textStyle="bold"
+            android:textColor="@color/colorTextAlternative"
+            android:id="@+id/txt_titulo_cadastro"/>
+
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:gravity="left"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:textColor="@color/colorTextAlternative"
+            android:text="@string/name"/>
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="18dp"
+            android:inputType="text"
+            android:textColor="@color/colorTextAlternative"
+            android:textColorHint="@color/colorCyan"
+            android:backgroundTint="@color/colorTextAlternative"
+            android:hint="@string/hint_piece_name"
+            android:id="@+id/txt_peca_nome"/>
+
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:gravity="left"
+            android:textSize="18sp"
+            android:textColor="@color/colorTextAlternative"
+            android:text="@string/description"/>
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="18dp"
+            android:inputType="text"
+            android:textColor="@color/colorTextAlternative"
+            android:textColorHint="@color/colorCyan"
+            android:backgroundTint="@color/colorTextAlternative"
+            android:hint="@string/hint_piece_description"
+            android:id="@+id/txt_data_notificacao"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:gravity="left"
+            android:textSize="18sp"
+            android:textColor="@color/colorTextAlternative"
+            android:text="@string/description"/>
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="18dp"
+            android:inputType="text"
+            android:textColor="@color/colorTextAlternative"
+            android:textColorHint="@color/colorCyan"
+            android:backgroundTint="@color/colorTextAlternative"
+            android:hint="@string/hint_piece_description"
+            android:id="@+id/txt_peca"/>
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginTop="20dp"
+            android:text="@string/save"
+            android:textColor="@color/colorPrimaryDark"
+            android:backgroundTint="@color/colorAccent"
+            android:onClick="teste"
+            android:id="@+id/btn_salvar"/>
+
+    </LinearLayout>
+
+</ScrollView>

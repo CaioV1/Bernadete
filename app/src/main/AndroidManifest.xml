@@ -25,7 +25,9 @@
         <activity
             android:name=".MainActivity"
             android:label="@string/app_name" />
-        <activity android:name=".LoginActivity"></activity>
+        <activity android:name=".LoginActivity" />
+        <activity android:name=".NotificationActivity" />
+        <activity android:name=".RegisterNotification"></activity>
     </application>
 
 </manifest>

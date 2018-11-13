@@ -20,39 +20,39 @@ class PresentationActivity : AppCompatActivity() {
 
         val handler:Handler = Handler()
 
-//        val database = DBHelper(applicationContext).readableDatabase
-//
-//        val SQL = "SELECT id_usuario FROM tbl_usuario"
-//
-//        val cursor = database.rawQuery(SQL, null)
-//
-//        if(cursor.count == 0){
-//
-//            handler.postDelayed(Runnable {
-//
-//                startActivity<LoginActivity>()
-//
-//            }, 1000)
-//
-//        } else {
-//
-//            handler.postDelayed(Runnable {
-//
-//                startActivity<MainActivity>()
-//
-//            }, 1000)
-//
-//        }
-//
-//        cursor.close()
-//
-//        database.close()
+        val database = DBHelper(applicationContext).readableDatabase
 
-        handler.postDelayed(Runnable {
+        val SQL = "SELECT id_usuario FROM tbl_usuario"
 
-            startActivity<MainActivity>()
+        val cursor = database.rawQuery(SQL, null)
 
-        }, 1000)
+        if(cursor.count == 0){
+
+            handler.postDelayed(Runnable {
+
+                startActivity<LoginActivity>()
+
+            }, 1000)
+
+        } else {
+
+            handler.postDelayed(Runnable {
+
+                startActivity<MainActivity>()
+
+            }, 1000)
+
+        }
+
+        cursor.close()
+
+        database.close()
+
+//        handler.postDelayed(Runnable {
+//
+//            startActivity<MainActivity>()
+//
+//        }, 1000)
 
     }
 }

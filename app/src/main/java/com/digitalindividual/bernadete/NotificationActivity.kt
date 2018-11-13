@@ -1,16 +1,12 @@
 package com.digitalindividual.bernadete
 
 import android.content.res.Configuration
-import android.os.Bundle
-import android.support.design.widget.BottomNavigationView
-import android.support.design.widget.NavigationView
-import android.support.v4.app.Fragment
-import android.support.v4.widget.DrawerLayout
-import android.support.v7.app.ActionBar
-import android.support.v7.app.ActionBarDrawerToggle
 import android.support.v7.app.AppCompatActivity
+import android.os.Bundle
+import android.support.design.widget.NavigationView
+import android.support.v4.widget.DrawerLayout
+import android.support.v7.app.ActionBarDrawerToggle
 import android.support.v7.widget.Toolbar
-import android.util.Log
 import android.view.MenuItem
 import android.view.View
 import org.jetbrains.anko.find
@@ -18,7 +14,7 @@ import org.jetbrains.anko.longToast
 import org.jetbrains.anko.startActivity
 import org.jetbrains.anko.toast
 
-class MainActivity : AppCompatActivity(){
+class NotificationActivity : AppCompatActivity() {
 
     lateinit var toolbar: Toolbar
 
@@ -28,16 +24,9 @@ class MainActivity : AppCompatActivity(){
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        setContentView(R.layout.activity_notification)
 
         setDrawerLayout()
-
-        val bottomNavegation = findViewById<BottomNavigationView>(R.id.navigation)
-
-        val principal = MainFragment.newInstance()
-        openFragment(principal)
-
-        bottomNavegation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener)
 
     }
 
@@ -47,7 +36,8 @@ class MainActivity : AppCompatActivity(){
 
         setSupportActionBar(toolbar)
 
-        drawer = findViewById<DrawerLayout>(R.id.activity_main)
+        drawer = findViewById<DrawerLayout>(R.id.notification_activity)
+
         toggle = object : ActionBarDrawerToggle(this, drawer, toolbar, R.string.open, R.string.close){
 
             override fun onDrawerOpened(drawerView: View?) {
@@ -76,72 +66,13 @@ class MainActivity : AppCompatActivity(){
 
             when(it.itemId){
 
-                R.id.roupa -> longToast("Essa é a tela de peça de roupa")
-                R.id.notificacao -> startActivity<NotificationActivity>()
+                R.id.roupa -> startActivity<MainActivity>()
+                R.id.notificacao -> longToast("Essa é a tela de notificações")
                 R.id.tag -> toast("Tag")
 
             }
 
             true
-
-        }
-
-    }
-
-    private val mOnNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener { item ->
-        when (item.itemId) {
-            R.id.navigation_home -> {
-
-                toolbar.title = "Guarda Roupa"
-
-                val principal = MainFragment.newInstance()
-                openFragment(principal)
-
-                return@OnNavigationItemSelectedListener true
-
-            }
-            R.id.navigation_dashboard -> {
-
-                toolbar.title = "Look do Dia"
-
-                val look = LookFragment.newInstance()
-                openFragment(look)
-
-                return@OnNavigationItemSelectedListener true
-            }
-            R.id.navigation_notifications -> {
-
-                toolbar.title = "Promoções"
-
-                val promocao = PromocaoFragment.newInstance()
-                openFragment(promocao)
-
-                return@OnNavigationItemSelectedListener true
-            }
-        }
-        false
-    }
-
-    private fun openFragment(fragment: Fragment){
-
-        val transacao = supportFragmentManager.beginTransaction()
-        transacao.replace(R.id.container, fragment)
-        transacao.addToBackStack(null)
-        transacao.commit()
-
-    }
-
-    override fun onBackPressed() {
-
-        super.onBackPressed()
-
-        if(supportFragmentManager.backStackEntryCount == 0){
-
-            finishAffinity()
-
-        } else {
-
-            fragmentManager.popBackStack()
 
         }
 
@@ -170,6 +101,12 @@ class MainActivity : AppCompatActivity(){
         }
 
         return super.onOptionsItemSelected(item)
+    }
+
+    fun openRegister(view: View){
+
+        startActivity<RegisterNotification>()
+
     }
 
 }
