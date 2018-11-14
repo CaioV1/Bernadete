@@ -5,6 +5,12 @@ package com.digitalindividual.model
  */
 data class Notificacao(var id: Int,
                        var titulo: String,
-                       var data: Int,
+                       var data: Long,
                        var local: String,
-                       var descricao: String)
+                       var descricao: String){
+
+    var peca: String = ""
+    var idPeca: Int = 0
+    var hora: Int = 0
+
+}

@@ -70,17 +70,40 @@
                 android:layout_gravity="left"
                 android:textSize="20sp"
                 android:textStyle="bold"
+                android:onClick="openDatePicker"
                 android:textColor="@color/colorCyan"
                 android:id="@+id/txt_data_notificacao"/>
 
             <ImageView
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:layout_marginLeft="30dp"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginLeft="15dp"
                 android:tint="@color/colorAccent"
                 android:backgroundTint="@color/colorAccent"
                 android:src="@drawable/calendar"
                 android:onClick="openDatePicker"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="40dp"
+                android:paddingTop="10dp"
+                android:layout_gravity="left"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:onClick="openTimePicker"
+                android:textColor="@color/colorCyan"
+                android:id="@+id/txt_hora_notificacao"/>
+
+            <ImageView
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginLeft="15dp"
+                android:tint="@color/colorAccent"
+                android:backgroundTint="@color/colorAccent"
+                android:src="@drawable/clock"
+                android:onClick="openTimePicker"/>
+
 
         </LinearLayout>
 
@@ -90,6 +113,24 @@
             android:layout_marginTop="20dp"
             android:gravity="left"
             android:textSize="18sp"
+            android:textStyle="bold"
+            android:textColor="@color/colorTextAlternative"
+            android:text="Peca de Roupa"/>
+
+        <Spinner
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:popupBackground="@color/colorPrimaryDark"
+            android:id="@+id/sp_peca">
+        </Spinner>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:gravity="left"
+            android:textSize="18sp"
+            android:textStyle="bold"
             android:textColor="@color/colorTextAlternative"
             android:text="@string/description"/>
 
@@ -109,6 +150,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
             android:gravity="left"
+            android:textStyle="bold"
             android:textSize="18sp"
             android:textColor="@color/colorTextAlternative"
             android:text="@string/place_title"/>

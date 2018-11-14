@@ -17,6 +17,19 @@ class DateConvert {
 
         }
 
+        fun SQLToString(dateSQL: Long): String{
+
+            var dateString = dateSQL.toString()
+
+            dateString = "${dateString.substring(0, 2)}/" +
+                    "${dateString.substring(2, 4)}/" +
+                    "${dateString.substring(4, 6)}" +
+                    "${dateString.substring(6, 8)}"
+
+            return dateString
+
+        }
+
     }
 
 }

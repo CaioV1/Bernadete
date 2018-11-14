@@ -1,5 +1,6 @@
 package com.digitalindividual.bernadete
 
+import android.app.Notification
 import android.content.res.Configuration
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
@@ -9,6 +10,11 @@ import android.support.v7.app.ActionBarDrawerToggle
 import android.support.v7.widget.Toolbar
 import android.view.MenuItem
 import android.view.View
+import android.widget.ListView
+import com.digitalindividual.adapters.NotificationAdapter
+import com.digitalindividual.dao.NotificacaoDAO
+import com.digitalindividual.model.Notificacao
+import com.digitalindividual.util.DateConvert
 import org.jetbrains.anko.find
 import org.jetbrains.anko.longToast
 import org.jetbrains.anko.startActivity
@@ -21,6 +27,14 @@ class NotificationActivity : AppCompatActivity() {
     lateinit var toggle: ActionBarDrawerToggle
 
     lateinit var drawer: DrawerLayout
+
+    lateinit var listView: ListView
+
+    lateinit var adapter: NotificationAdapter
+
+    val notificacaoDAO = NotificacaoDAO.instance
+
+    var listaNotificacao = ArrayList<Notificacao>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,6 +51,15 @@ class NotificationActivity : AppCompatActivity() {
         setSupportActionBar(toolbar)
 
         drawer = findViewById<DrawerLayout>(R.id.notification_activity)
+        listView = find<ListView>(R.id.notification_main)
+
+        listaNotificacao = notificacaoDAO.obterTodos(this)
+
+        longToast(DateConvert.SQLToString(listaNotificacao.get(0).data))
+
+        adapter = NotificationAdapter(this, listaNotificacao)
+
+        listView.adapter = adapter
 
         toggle = object : ActionBarDrawerToggle(this, drawer, toolbar, R.string.open, R.string.close){
 

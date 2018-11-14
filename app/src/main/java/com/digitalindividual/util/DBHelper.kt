@@ -4,6 +4,7 @@ import android.content.Context
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
 import org.jetbrains.anko.db.*
+import java.sql.Types.BIGINT
 
 /**
  * Created by 17170077 on 17/10/2018.
