@@ -55,7 +55,7 @@ class NotificationActivity : AppCompatActivity() {
 
         listaNotificacao = notificacaoDAO.obterTodos(this)
 
-        longToast(DateConvert.SQLToString(listaNotificacao.get(0).data))
+        //longToast(DateConvert.SQLToString(listaNotificacao.get(0).data))
 
         adapter = NotificationAdapter(this, listaNotificacao)
 

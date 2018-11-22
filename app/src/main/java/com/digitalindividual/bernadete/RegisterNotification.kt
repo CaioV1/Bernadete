@@ -13,10 +13,7 @@ import com.digitalindividual.model.Categoria
 import com.digitalindividual.model.Notificacao
 import com.digitalindividual.model.Peca
 import com.digitalindividual.util.DateConvert
-import org.jetbrains.anko.alert
-import org.jetbrains.anko.customView
-import org.jetbrains.anko.find
-import org.jetbrains.anko.toast
+import org.jetbrains.anko.*
 import java.text.SimpleDateFormat
 import java.time.Year
 import java.util.*
@@ -154,9 +151,9 @@ class RegisterNotification : AppCompatActivity() {
 
     fun insertNotification(view: View){
 
-        val data = DateConvert.stringToSQL(txtData.text.toString())
+        val data = DateConvert.stringToSQL(txtData.text.toString() + " " + txtHora.text.toString())
 
-        val notificacao = Notificacao(0, txtTitulo.text.toString(), data.toLong(), txtDescricao.text.toString(), txtLocal.text.toString())
+        val notificacao = Notificacao(0, txtTitulo.text.toString(), data, txtDescricao.text.toString(), txtLocal.text.toString())
 
         val peca = spinner.selectedItem as Peca
 
@@ -164,7 +161,11 @@ class RegisterNotification : AppCompatActivity() {
 
 //        val peca = spinner.getItemAtPosition(getPosition()) as Peca
 
-        toast(notificacaoDAO.inserir(this, notificacao).toString())
+        toast(data.toString())
+
+        startActivity<NotificationActivity>()
+
+        notificacaoDAO.inserir(this, notificacao)
 
     }
 

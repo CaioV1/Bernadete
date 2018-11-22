@@ -7,9 +7,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.ListView
 import android.widget.TextView
 import android.widget.Toast
 import com.digitalindividual.bernadete.R
+import com.digitalindividual.dao.NotificacaoDAO
 import com.digitalindividual.dao.PecaDAO
 import com.digitalindividual.model.Peca
 import org.jetbrains.anko.find
@@ -50,6 +52,13 @@ class ClosetAdapter : PagerAdapter {
         var image: ImageView = view.findViewById(R.id.img_closet)
         var txtNome: TextView = view.find(R.id.txt_nome)
         var txtCategoria: TextView = view.find(R.id.txt_categoria_slide)
+        val listView = view.find<ListView>(R.id.list_piece_notification)
+
+        val notificacaoDAO = NotificacaoDAO.instance
+
+        val adapter = NotificationAdapter(view.context, notificacaoDAO.obterPorPeca(view.context, listaPecas.get(position).id))
+
+        listView.adapter = adapter
 
         image.setImageBitmap(listaPecas.get(position).imagem)
 

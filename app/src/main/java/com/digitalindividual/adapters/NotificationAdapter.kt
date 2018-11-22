@@ -9,6 +9,7 @@ import android.widget.TextView
 import com.digitalindividual.bernadete.R
 import com.digitalindividual.model.Categoria
 import com.digitalindividual.model.Notificacao
+import com.digitalindividual.util.DateConvert
 
 class NotificationAdapter: BaseAdapter{
 
@@ -38,11 +39,11 @@ class NotificationAdapter: BaseAdapter{
 
         val txtTitulo = view?.findViewById<TextView>(R.id.txt_titulo_list)
         val txtPeca = view?.findViewById<TextView>(R.id.txt_peca_list)
-        val txtLocal = view?.findViewById<TextView>(R.id.txt_local_list)
+        val txtData = view?.findViewById<TextView>(R.id.txt_data_list)
 
         txtTitulo?.setText(item.titulo)
         txtPeca?.setText(item.peca)
-        txtLocal?.setText(item.local)
+        txtData?.setText(DateConvert.SQLToString(item.data))
 
         return view
 

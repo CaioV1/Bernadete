@@ -4,7 +4,7 @@
     android:layout_height="match_parent">
 
     <LinearLayout
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:orientation="vertical">
@@ -24,7 +24,6 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="45dp"
             android:textSize="20sp"
             android:text="Bota"
             android:layout_gravity="center_horizontal"
@@ -37,6 +36,13 @@
             android:layout_gravity="center_horizontal"
             android:src="@mipmap/ic_launcher"
             android:id="@+id/img_closet"/>
+
+        <ListView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/list_piece_notification">
+
+        </ListView>
 
         <!--<TextView-->
             <!--android:layout_width="wrap_content"-->

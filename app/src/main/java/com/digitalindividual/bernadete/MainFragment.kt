@@ -11,10 +11,13 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ListView
 import android.widget.TextView
 import android.widget.Toast
 import android.widget.Toolbar
 import com.digitalindividual.adapters.ClosetAdapter
+import com.digitalindividual.adapters.NotificationAdapter
+import com.digitalindividual.dao.NotificacaoDAO
 import com.digitalindividual.dao.PecaDAO
 import com.digitalindividual.model.Peca
 import com.github.clans.fab.FloatingActionButton
@@ -37,6 +40,7 @@ class MainFragment : Fragment() {
         val btnRemover = view.find<FloatingActionButton>(R.id.floating_button_delete)
         val btnAdicionar = view.find<FloatingActionButton>(R.id.floating_button_add)
         val btnEditar = view.find<FloatingActionButton>(R.id.floating_button_edit)
+
         val txtMessage = view.find<TextView>(R.id.txt_no_clothes)
 
         var pecaDAO = PecaDAO.instance

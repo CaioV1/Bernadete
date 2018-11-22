@@ -9,9 +9,15 @@ class DateConvert {
 
     companion object {
 
-        fun stringToSQL(dateString: String): Int{
+        fun stringToSQL(dateString: String): Long{
 
-            val dateSQL = dateString.replace("/", "").toInt()
+            val dateArray = dateString.split("/")
+
+            val array = dateArray[2].split(" ")
+
+            val hourArray = array[1].split(":")
+
+            val dateSQL = "${array[0]}${dateArray[1]}${dateArray[0]}${hourArray[0]}${hourArray[1]}".toLong()
 
             return dateSQL
 
@@ -21,10 +27,13 @@ class DateConvert {
 
             var dateString = dateSQL.toString()
 
-            dateString = "${dateString.substring(0, 2)}/" +
-                    "${dateString.substring(2, 4)}/" +
-                    "${dateString.substring(4, 6)}" +
-                    "${dateString.substring(6, 8)}"
+            val ano = dateString.substring(0, 4)
+            val mes = dateString.substring(4, 6)
+            val dia = dateString.substring(6, 8)
+            val hora = dateString.substring(8, 10)
+            val minuto = dateString.substring(10, 12)
+
+            dateString = "${dia}/${mes}/${ano} ${hora}:${minuto}"
 
             return dateString
 
