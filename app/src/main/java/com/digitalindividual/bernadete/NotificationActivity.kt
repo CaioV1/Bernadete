@@ -61,19 +61,7 @@ class NotificationActivity : AppCompatActivity() {
 
         listView.adapter = adapter
 
-        toggle = object : ActionBarDrawerToggle(this, drawer, toolbar, R.string.open, R.string.close){
-
-            override fun onDrawerOpened(drawerView: View?) {
-                super.onDrawerOpened(drawerView)
-                invalidateOptionsMenu()
-            }
-
-            override fun onDrawerClosed(drawerView: View?) {
-                super.onDrawerClosed(drawerView)
-                invalidateOptionsMenu()
-            }
-
-        }
+        toggle = object : ActionBarDrawerToggle(this, drawer, toolbar, R.string.open, R.string.close){}
 
         toggle.isDrawerIndicatorEnabled = true
         drawer.addDrawerListener(toggle)

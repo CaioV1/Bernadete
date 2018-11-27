@@ -33,6 +33,7 @@
         <ImageView
             android:layout_width="200dp"
             android:layout_height="300dp"
+            android:layout_marginTop="30dp"
             android:layout_gravity="center_horizontal"
             android:src="@mipmap/ic_launcher"
             android:id="@+id/img_closet"/>
@@ -43,31 +44,6 @@
             android:id="@+id/list_piece_notification">
 
         </ListView>
-
-        <!--<TextView-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:layout_marginBottom="20dp"-->
-            <!--android:textSize="20sp"-->
-            <!--android:text="Terceira Parcial"-->
-            <!--android:layout_gravity="center_horizontal"-->
-            <!--android:textColor="@color/colorPrimary" />-->
-
-        <!--<TextView-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:layout_marginBottom="20dp"-->
-            <!--android:textSize="18sp"-->
-            <!--android:text="22/10/2018 17h00"-->
-            <!--android:layout_gravity="center_horizontal"-->
-            <!--android:textColor="@color/colorText" />-->
-
-        <!--<ListView-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:id="@+id/list_closet">-->
-
-        <!--</ListView>-->
 
     </LinearLayout>
 

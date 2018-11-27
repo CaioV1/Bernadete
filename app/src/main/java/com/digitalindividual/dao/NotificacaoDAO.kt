@@ -51,6 +51,8 @@ class NotificacaoDAO {
 
     }
 
+
+
     fun obterTodos(context: Context): ArrayList<Notificacao>{
 
         var listaNotificacao = ArrayList<Notificacao>()

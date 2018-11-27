@@ -1,5 +1,9 @@
 package com.digitalindividual.bernadete
 
+import android.app.AlarmManager
+import android.app.PendingIntent
+import android.content.Context
+import android.content.Intent
 import android.content.res.Configuration
 import android.os.Bundle
 import android.support.design.widget.BottomNavigationView
@@ -17,6 +21,7 @@ import org.jetbrains.anko.find
 import org.jetbrains.anko.longToast
 import org.jetbrains.anko.startActivity
 import org.jetbrains.anko.toast
+import java.util.*
 
 class MainActivity : AppCompatActivity(){
 
@@ -107,6 +112,8 @@ class MainActivity : AppCompatActivity(){
                 val look = LookFragment.newInstance()
                 openFragment(look)
 
+
+
                 return@OnNavigationItemSelectedListener true
             }
             R.id.navigation_notifications -> {
@@ -170,6 +177,22 @@ class MainActivity : AppCompatActivity(){
         }
 
         return super.onOptionsItemSelected(item)
+    }
+
+    fun createAlarm(context: Context){
+
+        val intent: Intent = Intent("EXECUTAR_ALARME")
+        val pending: PendingIntent = PendingIntent.getBroadcast(this, 0, intent, 0)
+
+        val calendar:Calendar = Calendar.getInstance()
+        calendar.timeInMillis = System.currentTimeMillis()
+        calendar.add(Calendar.SECOND, 0)
+
+        val alarmManager: AlarmManager = getSystemService(Context.ALARM_SERVICE) as AlarmManager
+        val time: Long = calendar.timeInMillis
+
+        alarmManager.set(AlarmManager.RTC_WAKEUP, time, pending)
+
     }
 
 }

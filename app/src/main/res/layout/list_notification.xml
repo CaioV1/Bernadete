@@ -15,7 +15,6 @@
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="30dp"
             android:orientation="vertical">
 
             <TextView
@@ -41,7 +40,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="right"
             android:layout_marginTop="20dp"
-            android:layout_marginLeft="110dp"
+            android:layout_marginLeft="90dp"
             android:textColor="@color/colorAccent"
             android:textSize="18sp"
             android:id="@+id/txt_data_list"
