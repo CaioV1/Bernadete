@@ -29,6 +29,8 @@
         <activity android:name=".NotificationActivity" />
         <activity android:name=".RegisterNotification"
             android:windowSoftInputMode="stateHidden"></activity>
+        <receiver android:name="com.digitalindividual.util.AlarmReceiver">
+        </receiver>
     </application>
 
 </manifest>

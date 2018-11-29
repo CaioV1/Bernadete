@@ -57,7 +57,7 @@ class NotificationActivity : AppCompatActivity() {
 
         //longToast(DateConvert.SQLToString(listaNotificacao.get(0).data))
 
-        adapter = NotificationAdapter(this, listaNotificacao)
+        adapter = NotificationAdapter(this, listaNotificacao, "white")
 
         listView.adapter = adapter
 

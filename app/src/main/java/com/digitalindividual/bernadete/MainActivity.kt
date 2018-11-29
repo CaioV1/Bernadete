@@ -1,14 +1,19 @@
 package com.digitalindividual.bernadete
 
 import android.app.AlarmManager
+import android.app.NotificationChannel
+import android.app.NotificationManager
 import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
 import android.content.res.Configuration
+import android.os.Build
 import android.os.Bundle
 import android.support.design.widget.BottomNavigationView
 import android.support.design.widget.NavigationView
 import android.support.v4.app.Fragment
+import android.support.v4.app.NotificationCompat
+import android.support.v4.app.NotificationManagerCompat
 import android.support.v4.widget.DrawerLayout
 import android.support.v7.app.ActionBar
 import android.support.v7.app.ActionBarDrawerToggle
@@ -17,6 +22,7 @@ import android.support.v7.widget.Toolbar
 import android.util.Log
 import android.view.MenuItem
 import android.view.View
+import com.digitalindividual.util.AlarmReceiver
 import org.jetbrains.anko.find
 import org.jetbrains.anko.longToast
 import org.jetbrains.anko.startActivity
@@ -107,12 +113,12 @@ class MainActivity : AppCompatActivity(){
             }
             R.id.navigation_dashboard -> {
 
+//                createAlarm(this)
+
                 toolbar.title = "Look do Dia"
 
                 val look = LookFragment.newInstance()
                 openFragment(look)
-
-
 
                 return@OnNavigationItemSelectedListener true
             }
@@ -177,22 +183,6 @@ class MainActivity : AppCompatActivity(){
         }
 
         return super.onOptionsItemSelected(item)
-    }
-
-    fun createAlarm(context: Context){
-
-        val intent: Intent = Intent("EXECUTAR_ALARME")
-        val pending: PendingIntent = PendingIntent.getBroadcast(this, 0, intent, 0)
-
-        val calendar:Calendar = Calendar.getInstance()
-        calendar.timeInMillis = System.currentTimeMillis()
-        calendar.add(Calendar.SECOND, 0)
-
-        val alarmManager: AlarmManager = getSystemService(Context.ALARM_SERVICE) as AlarmManager
-        val time: Long = calendar.timeInMillis
-
-        alarmManager.set(AlarmManager.RTC_WAKEUP, time, pending)
-
     }
 
 }

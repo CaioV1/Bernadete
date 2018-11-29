@@ -1,6 +1,7 @@
 package com.digitalindividual.bernadete
 
 import android.app.AlertDialog
+import android.content.Context
 import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
@@ -24,11 +25,13 @@ import com.github.clans.fab.FloatingActionButton
 import com.github.clans.fab.FloatingActionMenu
 import org.jetbrains.anko.find
 import org.jetbrains.anko.intentFor
+import java.util.ArrayList
 
 class MainFragment : Fragment() {
 
     private var idPeca: Int = 0
     private var position: Int = 0
+    private var listaPecas = ArrayList<Peca>()
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 
@@ -45,11 +48,12 @@ class MainFragment : Fragment() {
 
         var pecaDAO = PecaDAO.instance
 
-        val listaPecas = pecaDAO.obterPecas(view.context)
+        listaPecas = pecaDAO.obterPecas(view.context)
 
         if(listaPecas.count() == 0){
 
             vpCloset.visibility = View.GONE
+            txtMessage.visibility = View.VISIBLE
             txtMessage.visibility = View.VISIBLE
 
 
@@ -62,6 +66,14 @@ class MainFragment : Fragment() {
         vpCloset.adapter = vpAdapter
 
         vpCloset.setCurrentItem(activity.intent.getIntExtra("posicao", 0), true)
+
+        val notificacao = activity.intent.getIntExtra("id", 0)
+
+        if(notificacao != 0){
+
+            vpCloset.setCurrentItem(findPosition(notificacao), true)
+
+        }
 
         btnAdicionar.setOnClickListener(View.OnClickListener {
 
@@ -145,6 +157,22 @@ class MainFragment : Fragment() {
         return view
 
  }
+
+    fun findPosition(id:Int): Int{
+
+        for (peca in listaPecas){
+
+            if(peca.id == id){
+
+                position = listaPecas.indexOf(peca)
+
+            }
+
+        }
+
+        return position
+
+    }
 
     companion object {
         fun newInstance(): MainFragment = MainFragment()

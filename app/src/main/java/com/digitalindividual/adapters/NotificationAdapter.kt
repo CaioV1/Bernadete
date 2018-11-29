@@ -1,6 +1,7 @@
 package com.digitalindividual.adapters
 
 import android.content.Context
+import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -15,13 +16,15 @@ class NotificationAdapter: BaseAdapter{
 
     private var listaNotifi = ArrayList<Notificacao>()
     private var context: Context
+    private var color = ""
 
     var position = 0
 
-    constructor(context: Context, listaNotifi :ArrayList<Notificacao>):super(){
+    constructor(context: Context, listaNotifi :ArrayList<Notificacao>, color: String):super(){
 
         this.listaNotifi = listaNotifi
         this.context = context
+        this.color = color
 
     }
 
@@ -40,6 +43,20 @@ class NotificationAdapter: BaseAdapter{
         val txtTitulo = view?.findViewById<TextView>(R.id.txt_titulo_list)
         val txtPeca = view?.findViewById<TextView>(R.id.txt_peca_list)
         val txtData = view?.findViewById<TextView>(R.id.txt_data_list)
+
+        if(color == "white"){
+
+            txtTitulo?.setTextColor(Color.WHITE)
+            txtPeca?.setTextColor(Color.WHITE)
+            txtData?.setTextColor(Color.WHITE)
+
+        } else {
+
+            txtTitulo?.setTextColor(Color.BLACK)
+            txtPeca?.setTextColor(Color.BLACK)
+            txtData?.setTextColor(Color.BLACK)
+
+        }
 
         txtTitulo?.setText(item.titulo)
         txtPeca?.setText(item.peca)

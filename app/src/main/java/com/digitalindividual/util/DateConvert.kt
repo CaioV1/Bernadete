@@ -1,6 +1,7 @@
 package com.digitalindividual.util
 
 import android.util.Log
+import java.text.SimpleDateFormat
 
 /**
  * Created by 17170077 on 13/11/2018.
@@ -36,6 +37,28 @@ class DateConvert {
             dateString = "${dia}/${mes}/${ano} ${hora}:${minuto}"
 
             return dateString
+
+        }
+
+        fun dateToMillisecond(date: String): Long{
+
+            val simpleDate: SimpleDateFormat = SimpleDateFormat("yyyyMMddHHmm")
+
+            var timeMill:Long = 0
+
+            try {
+
+                val datetime = simpleDate.parse(date)
+
+                timeMill = datetime.time
+
+            } catch (exception: Exception){
+
+                Log.d("@@@@@@@", date)
+
+            }
+
+            return timeMill
 
         }
 

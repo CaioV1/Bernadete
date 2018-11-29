@@ -1,7 +1,11 @@
 package com.digitalindividual.bernadete
 
+import android.app.AlarmManager
 import android.app.DatePickerDialog
+import android.app.PendingIntent
 import android.app.TimePickerDialog
+import android.content.Context
+import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
@@ -12,6 +16,7 @@ import com.digitalindividual.dao.PecaDAO
 import com.digitalindividual.model.Categoria
 import com.digitalindividual.model.Notificacao
 import com.digitalindividual.model.Peca
+import com.digitalindividual.util.AlarmReceiver
 import com.digitalindividual.util.DateConvert
 import org.jetbrains.anko.*
 import java.text.SimpleDateFormat
@@ -166,6 +171,22 @@ class RegisterNotification : AppCompatActivity() {
         startActivity<NotificationActivity>()
 
         notificacaoDAO.inserir(this, notificacao)
+
+        val alarmMgr = getSystemService(Context.ALARM_SERVICE) as AlarmManager
+        val broadcastIntent = Intent(this, AlarmReceiver::class.java)
+
+        broadcastIntent.putExtra("Titulo", notificacao.titulo)
+        broadcastIntent.putExtra("Roupa", peca.nome)
+        broadcastIntent.putExtra("id", peca.id)
+
+        // The Pending Intent to pass in AlarmManager
+        val pIntent = PendingIntent.getBroadcast(this,0,broadcastIntent,0)
+
+        alarmMgr.set(
+                AlarmManager.RTC_WAKEUP,
+                DateConvert.dateToMillisecond(data.toString()),
+                pIntent
+        )
 
     }
 

@@ -15,6 +15,11 @@ import com.digitalindividual.dao.NotificacaoDAO
 import com.digitalindividual.dao.PecaDAO
 import com.digitalindividual.model.Peca
 import org.jetbrains.anko.find
+import android.content.DialogInterface
+import android.R.array
+import android.app.AlertDialog
+import android.util.Log
+
 
 class ClosetAdapter : PagerAdapter {
 
@@ -52,13 +57,10 @@ class ClosetAdapter : PagerAdapter {
         var image: ImageView = view.findViewById(R.id.img_closet)
         var txtNome: TextView = view.find(R.id.txt_nome)
         var txtCategoria: TextView = view.find(R.id.txt_categoria_slide)
-        val listView = view.find<ListView>(R.id.list_piece_notification)
 
         val notificacaoDAO = NotificacaoDAO.instance
 
-        val adapter = NotificationAdapter(view.context, notificacaoDAO.obterPorPeca(view.context, listaPecas.get(position).id))
-
-        listView.adapter = adapter
+        val adapter = NotificationAdapter(view.context, notificacaoDAO.obterPorPeca(view.context, listaPecas.get(position).id), "black")
 
         image.setImageBitmap(listaPecas.get(position).imagem)
 
@@ -68,6 +70,32 @@ class ClosetAdapter : PagerAdapter {
         var vpCloset: ViewPager = container as ViewPager
 
         vpCloset.addView(view, 0)
+
+        image.setOnClickListener(View.OnClickListener {
+
+            val builder = AlertDialog.Builder(view.context, R.style.AlertDialogTheme)
+            builder.setTitle("Notificações")
+            builder.setAdapter(adapter, object : DialogInterface.OnClickListener{
+
+                override fun onClick(p0: DialogInterface?, p1: Int) {
+                    Log.d("dsada", "fdsfsd")
+                }
+
+            })
+
+            builder.setPositiveButton("Fechar", object : DialogInterface.OnClickListener{
+
+                override fun onClick(dialog: DialogInterface?, p1: Int) {
+
+                    dialog?.cancel()
+
+                }
+
+            })
+
+            builder.show()
+
+        })
 
         return view
 
