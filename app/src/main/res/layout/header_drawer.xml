@@ -3,23 +3,15 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:padding="10dp"
-    android:background="@color/colorCyan"
-    android:layout_height="match_parent">
+    android:background="@drawable/header_sidebar"
+    android:layout_height="150dp">
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="100dp"
         android:textSize="20sp"
-        android:textColor="@color/colorText"
-        android:textStyle="bold"
-        android:text="Boa noite"
-        android:gravity="left"/>
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textSize="20sp"
-        android:textColor="@color/colorText"
+        android:textColor="@color/colorAccent"
         android:textStyle="bold"
         android:text="Caio Victor"
         android:gravity="left"/>

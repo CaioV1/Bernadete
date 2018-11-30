@@ -6,6 +6,7 @@ import com.digitalindividual.model.Notificacao
 import com.digitalindividual.model.Peca
 import com.digitalindividual.util.DBHelper
 import com.digitalindividual.util.ImageConvert
+import org.jetbrains.anko.db.delete
 import org.jetbrains.anko.db.insert
 
 /**
@@ -19,7 +20,7 @@ class NotificacaoDAO {
 
     }
 
-    fun inserir(context: Context, notificacao: Notificacao): Boolean{
+    fun inserir(context: Context, notificacao: Notificacao): Int{
 
         val database = DBHelper.getInstance(context)
 
@@ -47,7 +48,9 @@ class NotificacaoDAO {
 
         database.close()
 
-        return id.toInt() != -1 || idRelacao.toInt() != -1
+        return id.toInt()
+
+        //return id.toInt() != -1 || idRelacao.toInt() != -1
 
     }
 
@@ -114,6 +117,30 @@ class NotificacaoDAO {
         database.close()
 
         return listaNotificacao
+
+    }
+
+    fun remover(context: Context, idNotificacao: Int): Boolean{
+
+        val database = DBHelper.getInstance(context)
+
+        var id = 0
+
+        database.use {
+
+            id = delete("tbl_peca_notificacao", "id_notificacao = ${idNotificacao}")
+
+        }
+
+        database.use {
+
+            id = delete("tbl_notificacao", "id_notificacao = ${idNotificacao}")
+
+        }
+
+        database.close()
+
+        return id != -1
 
     }
 

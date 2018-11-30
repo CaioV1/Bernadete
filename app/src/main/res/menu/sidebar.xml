@@ -1,8 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <item android:id="@+id/roupa" android:icon="@drawable/roupas" android:title="Peça de Roupa"/>
-    <item android:id="@+id/tag" android:icon="@drawable/tag" android:title="Tag"/>
-    <item android:id="@+id/notificacao" android:icon="@drawable/notificacao" android:title="Notificações"/>
-
+    <item android:title="Roupa" android:icon="@drawable/roupas">
+        <menu>
+            <item android:id="@+id/roupa" android:icon="@drawable/closet" android:title="Guarda Roupa"/>
+            <item android:id="@+id/catalogacao" android:icon="@drawable/roupas" android:title="Catalogação"/>
+        </menu>
+    </item>
+    <item android:title="Notificacao" android:icon="@drawable/notification_main">
+        <menu>
+            <item android:id="@+id/notificacao" android:icon="@drawable/notificacao" android:title="Gerenciamento"/>
+            <item android:id="@+id/item_cadastro" android:icon="@drawable/add_notification" android:title="Cadastro"/>
+        </menu>
+    </item>
+    <!--<item android:id="@+id/tag" android:icon="@drawable/tag" android:title="Tag"/>-->
 </menu>

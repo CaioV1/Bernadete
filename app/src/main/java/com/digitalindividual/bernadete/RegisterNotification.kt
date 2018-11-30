@@ -170,7 +170,7 @@ class RegisterNotification : AppCompatActivity() {
 
         startActivity<NotificationActivity>()
 
-        notificacaoDAO.inserir(this, notificacao)
+        val id = notificacaoDAO.inserir(this, notificacao)
 
         val alarmMgr = getSystemService(Context.ALARM_SERVICE) as AlarmManager
         val broadcastIntent = Intent(this, AlarmReceiver::class.java)
@@ -180,7 +180,7 @@ class RegisterNotification : AppCompatActivity() {
         broadcastIntent.putExtra("id", peca.id)
 
         // The Pending Intent to pass in AlarmManager
-        val pIntent = PendingIntent.getBroadcast(this,0,broadcastIntent,0)
+        val pIntent = PendingIntent.getBroadcast(this, id, broadcastIntent,0)
 
         alarmMgr.set(
                 AlarmManager.RTC_WAKEUP,

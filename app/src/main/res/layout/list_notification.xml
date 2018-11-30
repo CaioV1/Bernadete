@@ -3,7 +3,7 @@
     android:orientation="horizontal"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:padding="20dp"
+    android:padding="15dp"
     android:gravity="center_vertical"
     android:background="@android:color/transparent">
 
@@ -18,11 +18,13 @@
             android:orientation="vertical">
 
             <TextView
-                android:layout_width="match_parent"
+                android:layout_width="150dp"
                 android:layout_height="wrap_content"
-                android:textColor="@color/colorAccent"
-                android:textSize="20sp"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="18sp"
                 android:textStyle="bold"
+                android:ellipsize="end"
+                android:maxLines="1"
                 android:id="@+id/txt_titulo_list"
                 android:text="Jantar"/>
 
@@ -30,7 +32,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textColor="@color/colorAccent"
-                android:textSize="18sp"
+                android:textSize="15sp"
                 android:id="@+id/txt_peca_list"
                 android:text="Vestido"/>
 
@@ -39,17 +41,18 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="15dp"
-            android:layout_marginLeft="50dp"
-            android:textColor="@color/colorAccent"
-            android:textSize="18sp"
+            android:layout_marginLeft="10dp"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="15sp"
             android:id="@+id/txt_data_list"
             android:text="14/11/2018 19:00"/>
 
         <ImageButton
             android:layout_width="32dp"
             android:layout_height="32dp"
-            android:layout_marginLeft="20dp"
+            android:layout_marginLeft="10dp"
             android:layout_marginTop="10dp"
+            android:id="@+id/img_delete"
             android:src="@android:drawable/ic_menu_delete"
             android:background="@android:color/transparent"/>
 

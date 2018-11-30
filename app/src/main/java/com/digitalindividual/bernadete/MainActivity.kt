@@ -88,8 +88,10 @@ class MainActivity : AppCompatActivity(){
             when(it.itemId){
 
                 R.id.roupa -> longToast("Essa é a tela de peça de roupa")
+                R.id.catalogacao -> startActivity<RegisterPiece>()
                 R.id.notificacao -> startActivity<NotificationActivity>()
-                R.id.tag -> toast("Tag")
+                R.id.item_cadastro -> startActivity<RegisterNotification>()
+//                R.id.tag -> toast("Tag")
 
             }
 

@@ -78,14 +78,31 @@ class NotificationActivity : AppCompatActivity() {
             when(it.itemId){
 
                 R.id.roupa -> startActivity<MainActivity>()
+                R.id.catalogacao -> startActivity<RegisterPiece>()
+                R.id.item_cadastro -> startActivity<RegisterNotification>()
                 R.id.notificacao -> longToast("Essa é a tela de notificações")
-                R.id.tag -> toast("Tag")
+//                R.id.tag -> toast("Tag")
 
             }
 
             true
 
         }
+
+        listView.setOnItemClickListener { adapterView, view, i, l ->
+
+            val notificacao = adapter.getItem(i) as Notificacao
+
+            startActivity<RegisterNotification>("idNotificacao" to notificacao.id)
+
+        }
+
+    }
+
+    override fun onBackPressed() {
+        super.onBackPressed()
+
+        startActivity<MainActivity>()
 
     }
 
